@@ -1,5 +1,6 @@
 package com.unsoed.elvora.ui.rent
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.databinding.FragmentRentalBinding
 import com.unsoed.elvora.dummy.activityDataList
 import com.unsoed.elvora.dummy.rentalDataList
+import com.unsoed.elvora.ui.sumpayment.SummaryPaymentActivity
 
 class RentalFragment : Fragment() {
 
@@ -32,6 +34,7 @@ class RentalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val index = arguments?.getInt(TAB_INDEX, 0)
+        val premium = arguments?.getBoolean(EXTRA_PREMIUM, false)
         val dataUser = if (Build.VERSION.SDK_INT >= 33) {
             arguments?.getParcelable(EXTRA_DATA, UserModel::class.java)
         } else {
@@ -49,24 +52,36 @@ class RentalFragment : Fragment() {
 
             rentAdapter.onItemClickCallback(object: RentAdapter.OnItemClick {
                 override fun onClick(data: Rental) {
-                    val modalBottomSheet  = RentDialogFragment()
-                    modalBottomSheet.show(parentFragmentManager, RentDialogFragment.TAG)
+                    if(premium!!) {
+                        val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
+                        intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, data.type)
+                        intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, data.id.toString())
+                        intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, data.description)
+                        intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, data.price)
+                        intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, data.priceInt)
+                        intent.putExtra(SummaryPaymentActivity.FULL_NAME, dataUser?.fullName)
+                        startActivity(intent)
+                    } else {
+                        val modalBottomSheet  = RentDialogFragment()
+                        modalBottomSheet.show(parentFragmentManager, RentDialogFragment.TAG)
+                    }
                 }
             })
 
             rentAdapter.onDetailItemClickCallback(object: RentAdapter.OnItemClick {
                 override fun onClick(data: Rental) {
-                    val modalBottomSheet  = DetailRentDialogFragment()
-                    modalBottomSheet.show(parentFragmentManager, DetailRentDialogFragment.TAG)
-                    modalBottomSheet.arguments = Bundle().apply {
-                        putString(DetailRentDialogFragment.ID, data.id.toString())
-                        putString(DetailRentDialogFragment.PRICE, data.price)
-                        putDouble(DetailRentDialogFragment.PRICE_INT, data.priceInt)
-                        putString(DetailRentDialogFragment.DESC, data.description)
-                        putString(DetailRentDialogFragment.TYPE, data.type)
-                        putInt(DetailRentDialogFragment.CAPACITY, data.capacity)
-                        putString(DetailRentDialogFragment.NAME, dataUser?.fullName)
-                    }
+                        val modalBottomSheet  = DetailRentDialogFragment()
+                        modalBottomSheet.show(parentFragmentManager, DetailRentDialogFragment.TAG)
+                        modalBottomSheet.arguments = Bundle().apply {
+                            putString(DetailRentDialogFragment.ID, data.id.toString())
+                            putString(DetailRentDialogFragment.PRICE, data.price)
+                            putDouble(DetailRentDialogFragment.PRICE_INT, data.priceInt)
+                            putString(DetailRentDialogFragment.DESC, data.description)
+                            putString(DetailRentDialogFragment.TYPE, data.type)
+                            putInt(DetailRentDialogFragment.CAPACITY, data.capacity)
+                            putString(DetailRentDialogFragment.NAME, dataUser?.fullName)
+                            putBoolean(DetailRentDialogFragment.PREMIUM, premium!!)
+                        }
                 }
             })
         } else {
@@ -80,6 +95,7 @@ class RentalFragment : Fragment() {
     companion object {
         const val TAB_INDEX = "tab_index"
         const val EXTRA_DATA = "extra_data"
+        const val EXTRA_PREMIUM = "extra_premium"
     }
 
 }

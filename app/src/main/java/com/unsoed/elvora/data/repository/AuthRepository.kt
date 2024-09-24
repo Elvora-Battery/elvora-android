@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
+import com.google.gson.Gson
 import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
+import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.Data
 
 class AuthRepository(
@@ -16,32 +18,58 @@ class AuthRepository(
 ) {
     fun createAccount(email: String, name: String): LiveData<ApiResult<Data>> {
         return liveData {
-            emit(ApiResult.Loading)
-            val response = apiService.createAccount(email, name)
-            if (response.isSuccessful) {
-                val responseBody = response.body()
-                if (responseBody != null) {
-                    emit(ApiResult.Success(responseBody.data!!))
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.createAccount(email, name)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error createAccount")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in createAccount"
+                        )
+                    )
                 }
-            } else {
-                emit(ApiResult.Error(response.body()?.message!!))
-                Log.e(TAG, "Error Register Account")
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
             }
         }
     }
 
     fun verifyOTP(email: String, otp: String): LiveData<ApiResult<String>> {
         return liveData {
-            emit(ApiResult.Loading)
-            val response = apiService.verifyOTP(email, otp)
-            if (response.isSuccessful) {
-                val responseBody = response.body()
-                if (responseBody != null) {
-                    emit(ApiResult.Success(responseBody.message!!))
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.verifyOTP(email, otp)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.message!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error verifyOTP")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in verifyOTP"
+                        )
+                    )
                 }
-            } else {
-                emit(ApiResult.Error(response.body()?.message!!))
-                Log.e(TAG, "Error Verify OTP")
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
             }
         }
     }
@@ -52,16 +80,29 @@ class AuthRepository(
         confirmationPassword: String
     ): LiveData<ApiResult<String>> {
         return liveData {
-            emit(ApiResult.Loading)
-            val response = apiService.setPassword(email, password, confirmationPassword)
-            if (response.isSuccessful) {
-                val responseBody = response.body()
-                if (responseBody != null) {
-                    emit(ApiResult.Success(responseBody.message!!))
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.setPassword(email, password, confirmationPassword)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.message!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error verifyOTP")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in verifyOTP"
+                        )
+                    )
                 }
-            } else {
-                emit(ApiResult.Error(response.body()?.message!!))
-                Log.e(TAG, "Error Set Password")
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
             }
         }
     }
@@ -72,24 +113,36 @@ class AuthRepository(
 
     fun login(email: String, password: String): LiveData<ApiResult<String>> {
         return liveData {
-            emit(ApiResult.Loading)
-            val response = apiService.login(email, password)
-            if (response.isSuccessful) {
-                val responseBody = response.body()
-                if (responseBody != null) {
-                    emit(ApiResult.Success(responseBody.message!!))
-                    dataStore.saveUser(
-                        UserModel(
-                            email = email,
-                            fullName = responseBody.data?.user?.name!!,
-                            token = responseBody.data.token!!,
-                            premium = false
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.login(email, password)
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.message!!))
+                        dataStore.saveUser(
+                            UserModel(
+                                email = email,
+                                fullName = responseBody.data?.user?.name!!,
+                                token = responseBody.data.token!!,
+                            )
+                        )
+                    }
+                } else {
+                    Log.e(TAG, "Error login")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in login"
                         )
                     )
                 }
-            } else {
-                emit(ApiResult.Error(response.body()?.message!!))
-                Log.e(TAG, "Error Login")
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
             }
         }
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.unsoed.elvora.databinding.FragmentDetailRentDialogListDialogBinding
 import com.unsoed.elvora.ui.sumpayment.SummaryPaymentActivity
+import com.unsoed.elvora.ui.verification.CardVerificationActivity
 
 class DetailRentDialogFragment : BottomSheetDialogFragment() {
 
@@ -18,10 +19,8 @@ class DetailRentDialogFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         _binding = FragmentDetailRentDialogListDialogBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,22 +32,35 @@ class DetailRentDialogFragment : BottomSheetDialogFragment() {
         val name = arguments?.getString(NAME)
         val id = arguments?.getString(ID)
         val capacity = arguments?.getInt(CAPACITY, 0)
+        val premium = arguments?.getBoolean(PREMIUM, false)
 
         binding.listDetail.text = "• ${capacity}Ah Battery Capacity\n• Battery Management Dashboard\n• Replacement Guarantee "
         binding.tvBatteryType.text = type
         binding.tvDetailDesc.text = desc
         binding.tvDialogBatteryPrice.text = price
 
-        binding.btnRent.setOnClickListener {
-            val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
-            intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, type)
-            intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, id)
-            intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, desc)
-            intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, price)
-            intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, priceInt)
-            intent.putExtra(SummaryPaymentActivity.FULL_NAME, name)
-            startActivity(intent)
+        premium?.let { prem ->
+            binding.btnRent.text = if(prem) "Rental Now" else "Verify First"
+            if (prem) {
+                binding.btnRent.setOnClickListener {
+                    val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, type)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, id)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, desc)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, price)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, priceInt)
+                    intent.putExtra(SummaryPaymentActivity.FULL_NAME, name)
+                    startActivity(intent)
+                }
+            } else {
+                binding.btnRent.setOnClickListener {
+                    val intent = Intent(requireContext(), CardVerificationActivity::class.java)
+                    startActivity(intent)
+                }
+            }
         }
+
+
     }
 
 
@@ -61,6 +73,7 @@ class DetailRentDialogFragment : BottomSheetDialogFragment() {
         const val DESC = "desc"
         const val NAME = "name"
         const val ID = "id"
+        const val PREMIUM = "id"
     }
 
     override fun onDestroyView() {

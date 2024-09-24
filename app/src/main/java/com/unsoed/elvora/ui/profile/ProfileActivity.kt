@@ -97,6 +97,10 @@ class ProfileActivity : AppCompatActivity() {
             intent.getParcelableExtra(EXTRA_DATA)
         }
 
+        val premium = intent.getBooleanExtra(EXTRA_PREMIUM, false)
+        binding.tvTierMember.text = if(premium) "Premium Member" else "Basic Member"
+
+
         dataProfile?.let {
             binding.tvProfileName.text = dataProfile.fullName
         }
@@ -107,5 +111,6 @@ class ProfileActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
+        const val EXTRA_PREMIUM = "extra_premium"
     }
 }

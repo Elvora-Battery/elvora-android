@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".ui.subs.ChangeNameDialogFragment">
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Battery Name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_change_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter the name"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/btn_change_name"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginVertical="18dp"
+        android:layout_marginHorizontal="18dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:text="CHange"/>
+
+</LinearLayout>

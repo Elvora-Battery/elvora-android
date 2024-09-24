@@ -76,7 +76,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_tier_member"
                     app:shapeAppearance="@style/ShapeAppearanceOverlay.Elvora.CornerSize50Percent"
-                    tools:src="@tools:sample/avatars" />
+                    app:srcCompat="@drawable/avatar3" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -89,7 +89,18 @@
                 app:cardElevation="4dp"
                 app:strokeWidth="0dp">
 
+                <TextView
+                    android:id="@+id/tv_empty_subs"
+                    style="@style/TextAppearance.Elvora.HeadlineSmallSemiBold"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:text="No Data Available"
+                    android:gravity="center"/>
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cv_layout_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="20dp">

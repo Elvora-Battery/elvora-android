@@ -20,6 +20,10 @@ class RentViewModel(private val rentRepository: RentRepository): ViewModel() {
         return rentRepository.getUserShipping()
     }
 
+    fun getTierUser(): LiveData<Boolean> {
+        return rentRepository.getTierUser()
+    }
+
     fun createShippingUser(shippingModel: UserShippingModel): LiveData<ApiResult<String>> {
         return rentRepository.createShipping(shippingModel)
     }
@@ -38,5 +42,9 @@ class RentViewModel(private val rentRepository: RentRepository): ViewModel() {
 
     fun verificationKtp(nik: String, name: String, date: String): LiveData<ApiResult<String>> {
         return rentRepository.verificationKtp(nik, name, date)
+    }
+
+    fun publishToken(token: String): LiveData<ApiResult<String>> {
+        return rentRepository.publishToken(token)
     }
 }

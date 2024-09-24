@@ -8,7 +8,6 @@ data class UserModel(
     val email: String,
     val fullName: String,
     val token: String,
-    val premium: Boolean
 ): Parcelable
 
 @Parcelize

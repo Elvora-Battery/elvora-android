@@ -22,7 +22,9 @@ class RentFragment : Fragment() {
         RentModelFactory.getInstance(requireContext())
     }
     private var userModel: UserModel? = null
-
+    private var isPremium = false
+    private var premiumDone = false
+    private var userDone = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,17 +37,31 @@ class RentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("RentFragment", "InitViewFragment")
+        rentalViewModel.getTierUser().observe(viewLifecycleOwner) {
+            it?.let { data ->
+                isPremium = data
+                premiumDone = true
+            }
+        }
 
         rentalViewModel.getUserSession().observe(viewLifecycleOwner) {
             Log.d("RentFragment", "getSession")
             it?.let {
-                val adapter = SectionsPagerAdapter(requireActivity())
-                adapter.userModel = UserModel(email = it.email, fullName = it.fullName, token = it.token, premium = it.premium)
-                binding.vpRental.adapter = adapter
-                TabLayoutMediator(binding.tabLayout, binding.vpRental) { tab, position ->
-                    tab.text = resources.getString(TAB_TITLES[position])
-                }.attach()
+                userModel = it
+                userDone = true
             }
+        }
+
+        if(userDone && premiumDone) {
+            val adapter = SectionsPagerAdapter(requireActivity())
+            userModel?.let {
+                adapter.userModel = UserModel(email = it.email, fullName = it.fullName, token = it.token)
+            }
+            adapter.premium = isPremium
+            binding.vpRental.adapter = adapter
+            TabLayoutMediator(binding.tabLayout, binding.vpRental) { tab, position ->
+                tab.text = resources.getString(TAB_TITLES[position])
+            }.attach()
         }
     }
 

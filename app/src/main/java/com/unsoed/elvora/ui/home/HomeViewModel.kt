@@ -9,6 +9,7 @@ import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.data.UserShippingModel
 import com.unsoed.elvora.data.UserVerify
 import com.unsoed.elvora.data.repository.HomeRepository
+import com.unsoed.elvora.data.response.home.Data
 import com.unsoed.elvora.data.response.map.MapResponse
 import kotlinx.coroutines.launch
 
@@ -24,9 +25,16 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
     fun getUserVerify(): LiveData<UserVerify> {
         return homeRepository.getUserVerify()
     }
+    fun getTierUser(): LiveData<Boolean> {
+        return homeRepository.getTierUser()
+    }
 
     fun getStationRecommendation(mapRequest: MapRequest): LiveData<ApiResult<MapResponse>> {
         return homeRepository.getStationRecommendation(mapRequest)
+    }
+
+    fun getDashboardData(): LiveData<ApiResult<Data>> {
+        return homeRepository.getDashboardData()
     }
 
     fun logout() {

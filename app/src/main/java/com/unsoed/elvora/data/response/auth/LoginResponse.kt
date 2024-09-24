@@ -11,6 +11,21 @@ data class LoginResponse(
 	val message: String? = null
 )
 
+data class User(
+
+	@field:SerializedName("name")
+	val name: String? = null,
+
+	@field:SerializedName("verify")
+	val verify: Boolean? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
+
+	@field:SerializedName("email")
+	val email: String? = null
+)
+
 data class Data(
 
 	@field:SerializedName("user")
@@ -18,16 +33,4 @@ data class Data(
 
 	@field:SerializedName("token")
 	val token: String? = null
-)
-
-data class User(
-
-	@field:SerializedName("name")
-	val name: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("email")
-	val email: String? = null
 )

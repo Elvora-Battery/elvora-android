@@ -7,6 +7,7 @@ import com.unsoed.elvora.data.network.ApiConfig
 import com.unsoed.elvora.data.repository.AuthRepository
 import com.unsoed.elvora.data.repository.HomeRepository
 import com.unsoed.elvora.data.repository.RentRepository
+import com.unsoed.elvora.data.repository.SubsRepository
 
 object Injection {
     fun provideAuthRepository(context: Context): AuthRepository {
@@ -27,5 +28,10 @@ object Injection {
         val apiServiceScan = ApiConfig.getApiServiceScan()
         val dataStore = UserPreferences.getInstanceDataStore(context.dataStore)
         return RentRepository.getInstance(apiService, dataStore, apiServiceScan)
+    }
+    fun provideSubsRepository(context: Context): SubsRepository {
+        val apiService = ApiConfig.getApiService()
+        val dataStore = UserPreferences.getInstanceDataStore(context.dataStore)
+        return SubsRepository.getInstance(apiService, dataStore)
     }
 }

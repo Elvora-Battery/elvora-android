@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.sumpayment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
@@ -135,6 +136,7 @@ class SummaryPaymentActivity : AppCompatActivity() {
         val priceBattery = intent.getStringExtra(BATTERY_PRICE)
         val idBattery = intent.getStringExtra(BATTERY_RENT_ID)
 
+        Log.e("SummaeryPayment", "ID BATTERY : ${idBattery.toString()}")
         idBattery?.let {
             id = it
         }

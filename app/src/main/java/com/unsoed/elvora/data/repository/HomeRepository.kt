@@ -13,7 +13,11 @@ import com.unsoed.elvora.data.UserVerify
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
+import com.unsoed.elvora.data.response.home.Data
 import com.unsoed.elvora.data.response.map.MapResponse
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.withContext
 
 class HomeRepository(
     private val apiService: ApiService,
@@ -31,6 +35,10 @@ class HomeRepository(
 
     fun getUserVerify(): LiveData<UserVerify> {
         return dataStore.getUserVerify().asLiveData()
+    }
+
+    fun getTierUser(): LiveData<Boolean> {
+        return dataStore.getTierUser().asLiveData()
     }
 
     suspend fun logout() {
@@ -57,6 +65,39 @@ class HomeRepository(
                     emit(
                         ApiResult.Error(
                             errorMessage.message ?: "Unknown Error in Maps Recommendation"
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
+    fun getDashboardData(): LiveData<ApiResult<Data>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.getDashboard(token = "Bearer ${tokenUser?.token}")
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error getDashboardData")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in getDashboardData"
                         )
                     )
                 }

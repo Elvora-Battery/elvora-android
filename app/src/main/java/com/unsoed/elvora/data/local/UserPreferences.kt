@@ -23,8 +23,12 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
                 token = preferences[TOKEN_KEY] ?: "",
                 fullName = preferences[FULL_NAME_KEY] ?: "",
                 email = preferences[EMAIL_KEY] ?: "",
-                premium = preferences[PREMIUM_KEY] ?: false,
             )
+        }
+    }
+    fun getTierUser(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[PREMIUM_KEY] ?: false
         }
     }
 
@@ -55,7 +59,6 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[TOKEN_KEY] = user.token
             preferences[EMAIL_KEY] = user.email
             preferences[FULL_NAME_KEY] = user.fullName
-            preferences[PREMIUM_KEY] = user.premium
         }
     }
 
@@ -82,6 +85,7 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[PREMIUM_KEY] = isPremium
         }
     }
+
 
     suspend fun clearUser() {
         dataStore.edit { preferences ->

@@ -48,7 +48,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/tv_title_sumary"
-                tools:text="12" />
+                android:text="-" />
 
             <TextView
                 android:id="@+id/tv_satuan_sumary"

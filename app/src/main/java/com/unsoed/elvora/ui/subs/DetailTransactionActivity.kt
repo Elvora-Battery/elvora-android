@@ -72,5 +72,7 @@ class DetailTransactionActivity : AppCompatActivity() {
         const val PAYMENT_TRANSACTION = "payment_transaction"
         const val TOTAL_PRICE = "total_price"
         const val TOKEN = "token"
+
+        const val EXTRA_DATA = "extra_data"
     }
 }

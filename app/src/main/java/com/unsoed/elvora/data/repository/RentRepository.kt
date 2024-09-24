@@ -24,9 +24,13 @@ class RentRepository(private val apiService: ApiService, private val dataStore: 
 
     fun createShipping(shippingModel: UserShippingModel): LiveData<ApiResult<String>> {
         return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
             try {
                 emit(ApiResult.Loading)
                 val response = apiService.createShipping(
+                    token = "Bearer ${tokenUser?.token}",
                     userId = "1",
                     name = shippingModel.name,
                     phone = shippingModel.telephoneNumber,
@@ -145,6 +149,31 @@ class RentRepository(private val apiService: ApiService, private val dataStore: 
         }
     }
 
+    fun publishToken(token: String): LiveData<ApiResult<String>> {
+        return liveData {
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.publishToken(
+                    token = token
+                )
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if(responseBody != null) {
+                        emit(ApiResult.Success(responseBody.message!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error Publish Token")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(ApiResult.Error(errorMessage.message ?: "Unknown Error in Publish Token"))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
     fun paidTransaction(idTransaction: String): LiveData<ApiResult<PaidTransactionResponse>> {
         return liveData {
             val tokenUser = withContext(Dispatchers.IO) {
@@ -177,6 +206,10 @@ class RentRepository(private val apiService: ApiService, private val dataStore: 
 
     fun getUserSession(): LiveData<UserModel> {
         return dataStore.getUser().asLiveData()
+    }
+
+    fun getTierUser(): LiveData<Boolean> {
+        return dataStore.getTierUser().asLiveData()
     }
 
     fun getUserShipping(): LiveData<UserShippingModel> {

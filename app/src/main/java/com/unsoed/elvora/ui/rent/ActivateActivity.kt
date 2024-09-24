@@ -5,16 +5,22 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.unsoed.elvora.MainActivity
 import com.unsoed.elvora.R
+import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.databinding.ActivityActivateBinding
+import com.unsoed.elvora.helper.RentModelFactory
 
 class ActivateActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityActivateBinding
+    private val rentViewModel: RentViewModel by viewModels {
+        RentModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,11 +46,31 @@ class ActivateActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    val intent = Intent(this@ActivateActivity, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
-                    finish()
-                    Toast.makeText(this, "Token Anda : $token", Toast.LENGTH_SHORT).show()
+                    rentViewModel.publishToken(token).observe(this) {
+                        it?.let { data ->
+                            when(data) {
+                                is ApiResult.Loading -> {
+
+                                }
+
+                                ApiResult.Empty -> {
+
+                                }
+
+                                is ApiResult.Error -> {
+                                    Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
+                                }
+
+                                is ApiResult.Success -> {
+                                    val intent = Intent(this@ActivateActivity, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+                                    finish()
+                                    Toast.makeText(this, data.data, Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -8,13 +8,15 @@ import com.unsoed.elvora.data.UserModel
 
 class SectionsPagerAdapter(fragment: FragmentActivity): FragmentStateAdapter(fragment) {
 
-    var userModel = UserModel(email = "", fullName = "", token = "", premium = false)
+    var userModel = UserModel(email = "", fullName = "", token = "")
+    var premium = false
 
     override fun createFragment(position: Int): Fragment {
         val fragment: Fragment = RentalFragment()
         fragment.arguments = Bundle().apply {
             putInt(RentalFragment.TAB_INDEX, position + 1)
             putParcelable(RentalFragment.EXTRA_DATA, userModel)
+            putBoolean(RentalFragment.EXTRA_PREMIUM, premium)
         }
         return fragment
     }

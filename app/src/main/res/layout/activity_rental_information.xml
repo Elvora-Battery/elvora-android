@@ -120,6 +120,7 @@
             tools:text="Active" />
 
         <TextView
+            android:id="@+id/tv_change_name"
             style="@style/TextAppearance.Elvora.BodyMedium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -65,7 +65,7 @@ class VerifyEmailActivity : AppCompatActivity() {
         }
 
         binding.btnResend.setOnClickListener {
-            Toast.makeText(this, "Cek yang bener bangsat", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Cek email Anda", Toast.LENGTH_SHORT).show()
         }
     }
 

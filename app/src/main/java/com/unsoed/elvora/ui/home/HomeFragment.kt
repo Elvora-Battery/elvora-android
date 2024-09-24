@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -12,7 +13,10 @@ import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 import com.unsoed.elvora.R
+import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.UserModel
+import com.unsoed.elvora.data.response.home.Battery
+import com.unsoed.elvora.data.response.home.Transaction
 import com.unsoed.elvora.databinding.FragmentHomeBinding
 import com.unsoed.elvora.helper.HomeModelFactory
 import com.unsoed.elvora.ui.profile.ProfileActivity
@@ -25,6 +29,9 @@ class HomeFragment : Fragment() {
         HomeModelFactory.getInstance(requireContext())
     }
     private var userData: UserModel? = null
+    private var isTierUserPremium: Boolean = false
+    private var batteryData: Battery? = null
+    private var transactionData: Transaction? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,11 +47,6 @@ class HomeFragment : Fragment() {
 
         initView()
         setupViewFragment()
-        setupCardBattery()
-        setupCardTemperature()
-        setupCardConsumption()
-        setupCardDistance()
-        setupCardDriveTime()
     }
 
     private fun initView() {
@@ -55,9 +57,28 @@ class HomeFragment : Fragment() {
             }
         }
 
+        homeViewModel.getTierUser().observe(viewLifecycleOwner) {
+            it?.let { isPremium ->
+                binding.tvTierMember.text = if (isPremium) "Premium Member" else "Basic Member"
+                isTierUserPremium = isPremium
+            }
+        }
+
+        homeViewModel.getUserShipping().observe(viewLifecycleOwner) {
+            it?.let { data ->
+                if (data.address.isEmpty()) {
+                    binding.tvMemberLocation.text = "Location is not set"
+                } else {
+                    binding.tvMemberLocation.text =
+                        "${data.street}, ${data.village}, ${data.address}"
+                }
+            }
+        }
+
         binding.ivMember.setOnClickListener {
             val intent = Intent(requireContext(), ProfileActivity::class.java)
             intent.putExtra(ProfileActivity.EXTRA_DATA, userData)
+            intent.putExtra(ProfileActivity.EXTRA_PREMIUM, isTierUserPremium)
             startActivity(intent)
         }
 
@@ -75,7 +96,7 @@ class HomeFragment : Fragment() {
 
         binding.cardTime.apply {
             tvTitleSumary.text = "Drive Time"
-            tvNumberSumary.text = "12"
+            tvNumberSumary.text = "-"
             tvSatuanSumary.text = "h"
             cvSummary.background = shapeDrawable
         }
@@ -93,7 +114,7 @@ class HomeFragment : Fragment() {
 
         binding.cardDistance.apply {
             tvTitleSumary.text = "Total Distance"
-            tvNumberSumary.text = "43"
+            tvNumberSumary.text = "-"
             tvSatuanSumary.text = "Km"
             cvSummary.background = shapeDrawable
         }
@@ -111,7 +132,7 @@ class HomeFragment : Fragment() {
 
         binding.cardConsumption.apply {
             tvTitleSumary.text = "Usage Rate"
-            tvNumberSumary.text = "69"
+            tvNumberSumary.text = "${batteryData?.dayaDigunakan}"
             tvSatuanSumary.text = "KwH"
             cvSummary.background = shapeDrawable
         }
@@ -119,9 +140,14 @@ class HomeFragment : Fragment() {
 
     private fun setupCardTemperature() {
         binding.cardTempMonitoring.apply {
-            ivCardMonitoring.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.icon_temp))
+            ivCardMonitoring.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.icon_temp
+                )
+            )
             titleCard.text = "Temperature"
-            tvCardPercentage.text = "28°C"
+            tvCardPercentage.text = "${batteryData?.suhu}°C"
             tvCardEstimate.text = "Good Condition"
             cvMonitoring.setCardBackgroundColor(requireContext().getColor(R.color.green_container))
         }
@@ -129,22 +155,63 @@ class HomeFragment : Fragment() {
 
     private fun setupCardBattery() {
         binding.cardBatteryMonitoring.apply {
-            ivCardMonitoring.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.icon_pencil_battery))
-            titleCard.text = "Battery"
-            tvCardPercentage.text = "69%"
+            ivCardMonitoring.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    requireContext(),
+                    R.drawable.icon_pencil_battery
+                )
+            )
+            titleCard.text = "Daya"
+            tvCardPercentage.text = batteryData?.daya
             tvCardEstimate.text = "Est. distance 95km"
             cvMonitoring.setCardBackgroundColor(requireContext().getColor(R.color.blue_container))
         }
     }
 
     private fun setupViewFragment() {
-        binding.apply {
-            tvTierMember.text = "Premium Member"
-            tvIdBattery.text = "EV2001"
-            tvIdBatteryType.text = "72V 40Ah Battery"
-            tvMotorcycleName.text = "Motor EV200 Vision"
-            tvMemberLocation.text = "Mandiraja, Banjarnegara, Jawa Tengah"
-            ivMember.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.avatar3))
+        homeViewModel.getDashboardData().observe(viewLifecycleOwner) {
+            it?.let { data ->
+                when (data) {
+                    is ApiResult.Loading -> {
+
+                    }
+
+                    ApiResult.Empty -> {
+
+                    }
+
+                    is ApiResult.Error -> {
+                        Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
+                    }
+
+                    is ApiResult.Success -> {
+                        if (data.data.transaction != null && data.data.battery != null) {
+                            batteryData = data.data.battery
+                            transactionData = data.data.transaction
+                            setupCardBattery()
+                            setupCardTemperature()
+                            setupCardConsumption()
+                            setupCardDistance()
+                            setupCardDriveTime()
+                            binding.apply {
+                                tvIdBattery.text = "EV${data.data.transaction.id}"
+                                tvIdBatteryType.text =
+                                    if (data.data.transaction.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
+                                tvMotorcycleName.text = data.data.transaction.batteryName
+                                ivMember.setImageDrawable(
+                                    AppCompatResources.getDrawable(
+                                        requireContext(),
+                                        R.drawable.avatar3
+                                    )
+                                )
+                            }
+                        } else {
+                            binding.cvLayoutDashboard.visibility = View.INVISIBLE
+                            binding.tvEmptySubs.visibility = View.VISIBLE
+                        }
+                    }
+                }
+            }
         }
     }
 
