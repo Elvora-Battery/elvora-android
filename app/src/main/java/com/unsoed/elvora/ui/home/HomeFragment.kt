@@ -182,6 +182,13 @@ class HomeFragment : Fragment() {
 
                     is ApiResult.Error -> {
                         Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
+                        binding.cvLayoutDashboard.visibility = View.INVISIBLE
+                        binding.tvEmptySubs.visibility = View.VISIBLE
+                        setupCardDriveTime()
+                        setupCardBattery()
+                        setupCardConsumption()
+                        setupCardDistance()
+                        setupCardTemperature()
                     }
 
                     is ApiResult.Success -> {
