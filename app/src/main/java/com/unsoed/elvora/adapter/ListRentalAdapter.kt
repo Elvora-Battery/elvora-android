@@ -4,7 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.unsoed.elvora.data.response.subs.AllSubsriptionsItem
+import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.databinding.CardItemRentalBinding
 import com.unsoed.elvora.ui.rent.RentalInformationActivity
 

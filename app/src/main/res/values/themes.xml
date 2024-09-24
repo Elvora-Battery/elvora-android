@@ -157,6 +157,5 @@
         <item name="colorOnSurface">?attr/colorOnSurface</item>
         <item name="textAppearanceTitleMedium">@style/TextAppearance.Elvora.TitleMedium</item>
         <item name="textAppearanceBodySmall">@style/TextAppearance.Elvora.BodySmall</item>
-        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 </resources>

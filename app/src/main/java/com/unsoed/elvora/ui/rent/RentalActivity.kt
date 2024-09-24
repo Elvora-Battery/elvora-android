@@ -8,8 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.response.subs.AllSubsriptionsItem
+import com.unsoed.elvora.data.response.getSubs.ActiveSubscription
 import com.unsoed.elvora.databinding.ActivityRentalBinding
+import com.unsoed.elvora.helper.formatDate
 
 class RentalActivity : AppCompatActivity() {
 
@@ -27,17 +28,19 @@ class RentalActivity : AppCompatActivity() {
         }
 
         val dataRental = if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra(LIST_RENTAL, AllSubsriptionsItem::class.java)
+            intent.getParcelableExtra(LIST_RENTAL, ActiveSubscription::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent?.getParcelableExtra(LIST_RENTAL)
         }
 
         dataRental?.let {
-            binding.tvCvDatePurchase.text = it.createdAt.toString()
+            val purchaseDate = formatDate(it.createdAt!!)
+            val createdDate = formatDate(it.createdAt!!)
+            binding.tvCvDatePurchase.text = "Purchase date $purchaseDate"
             binding.tvCvIdBattery.text = "EV${it.id}"
-            binding.tvCvEndDate.text = it.expirationDate.toString()
-            binding.tvCvNameMotor.text = "Default Motorcycle EV${it.id}"
+            binding.tvCvEndDate.text = "Purchase date $createdDate"
+            binding.tvCvNameMotor.text = it.batteryName
 
             binding.cvRental.setOnClickListener {
                 val intent = Intent(this@RentalActivity, RentalInformationActivity::class.java)

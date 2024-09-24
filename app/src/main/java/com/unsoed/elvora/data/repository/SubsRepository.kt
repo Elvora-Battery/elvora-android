@@ -8,7 +8,7 @@ import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
-import com.unsoed.elvora.data.response.subs.Data
+import com.unsoed.elvora.data.response.getSubs.Data
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext

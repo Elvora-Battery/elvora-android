@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.response.subs.AllSubsriptionsItem
+import com.unsoed.elvora.data.response.getSubs.ActiveSubscription
 import com.unsoed.elvora.databinding.ActivityRentalInformationBinding
 import com.unsoed.elvora.ui.subs.ChangeNameDialogFragment
 
@@ -28,7 +28,7 @@ class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.
         }
 
         val rentalBattery = if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra(EXTRA_DATA, AllSubsriptionsItem::class.java)
+            intent.getParcelableExtra(EXTRA_DATA, ActiveSubscription::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_DATA)
@@ -36,7 +36,7 @@ class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.
 
         rentalBattery?.let {
             binding.apply {
-                tvIdTransaction.text = "EV${it.id}"
+                tvRentalIdBattery.text = "EV${it.id}"
                 tvRentalCategory.text = if(it.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
                 tvRentalStatus.text = it.status
                 tvRentalBatteryName.text = it.batteryName

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.repository.SubsRepository
-import com.unsoed.elvora.data.response.subs.Data
+import com.unsoed.elvora.data.response.getSubs.Data
 
 class SubsViewModel(private val subsRepository: SubsRepository): ViewModel() {
     fun getAllSubs(): LiveData<ApiResult<Data>> {

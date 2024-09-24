@@ -1,13 +1,13 @@
 package com.unsoed.elvora.ui.rent
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unsoed.elvora.adapter.ActivityAdapter
 import com.unsoed.elvora.adapter.RentAdapter
@@ -16,12 +16,18 @@ import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.databinding.FragmentRentalBinding
 import com.unsoed.elvora.dummy.activityDataList
 import com.unsoed.elvora.dummy.rentalDataList
+import com.unsoed.elvora.helper.RentModelFactory
 import com.unsoed.elvora.ui.sumpayment.SummaryPaymentActivity
 
 class RentalFragment : Fragment() {
 
     private var _binding: FragmentRentalBinding? = null
     val binding get() = _binding!!
+    private val rentViewModel: RentViewModel by viewModels {
+        RentModelFactory.getInstance(requireContext())
+    }
+    private var userModel: UserModel? = null
+    private var isPremium = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,16 +39,19 @@ class RentalFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val index = arguments?.getInt(TAB_INDEX, 0)
-        val premium = arguments?.getBoolean(EXTRA_PREMIUM, false)
-        val dataUser = if (Build.VERSION.SDK_INT >= 33) {
-            arguments?.getParcelable(EXTRA_DATA, UserModel::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments?.getParcelable(EXTRA_DATA)
+        rentViewModel.getTierUser().observe(viewLifecycleOwner) {
+            it?.let { data ->
+                isPremium = data
+            }
         }
 
-        Log.d("RentFragment", dataUser.toString())
+        rentViewModel.getUserSession().observe(viewLifecycleOwner) {
+            Log.d("RentFragment", "getSession")
+            it?.let {
+                userModel = it
+            }
+        }
+        val index = arguments?.getInt(TAB_INDEX, 0)
 
         if(index == 1) {
             val rentAdapter = RentAdapter(rentalDataList)
@@ -52,14 +61,14 @@ class RentalFragment : Fragment() {
 
             rentAdapter.onItemClickCallback(object: RentAdapter.OnItemClick {
                 override fun onClick(data: Rental) {
-                    if(premium!!) {
+                    if(isPremium) {
                         val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
                         intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, data.type)
                         intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, data.id.toString())
                         intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, data.description)
                         intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, data.price)
                         intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, data.priceInt)
-                        intent.putExtra(SummaryPaymentActivity.FULL_NAME, dataUser?.fullName)
+                        intent.putExtra(SummaryPaymentActivity.FULL_NAME, userModel?.fullName)
                         startActivity(intent)
                     } else {
                         val modalBottomSheet  = RentDialogFragment()
@@ -79,8 +88,8 @@ class RentalFragment : Fragment() {
                             putString(DetailRentDialogFragment.DESC, data.description)
                             putString(DetailRentDialogFragment.TYPE, data.type)
                             putInt(DetailRentDialogFragment.CAPACITY, data.capacity)
-                            putString(DetailRentDialogFragment.NAME, dataUser?.fullName)
-                            putBoolean(DetailRentDialogFragment.PREMIUM, premium!!)
+                            putString(DetailRentDialogFragment.NAME, userModel?.fullName)
+                            putBoolean(DetailRentDialogFragment.PREMIUM, isPremium)
                         }
                 }
             })
@@ -94,8 +103,6 @@ class RentalFragment : Fragment() {
 
     companion object {
         const val TAB_INDEX = "tab_index"
-        const val EXTRA_DATA = "extra_data"
-        const val EXTRA_PREMIUM = "extra_premium"
     }
 
 }

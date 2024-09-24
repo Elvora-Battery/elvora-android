@@ -5,10 +5,10 @@ import com.unsoed.elvora.data.response.BasicResponse
 import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.PaidTransactionResponse
 import com.unsoed.elvora.data.response.auth.LoginResponse
+import com.unsoed.elvora.data.response.getSubs.SubsResponse
 import com.unsoed.elvora.data.response.home.DashboardResponse
 import com.unsoed.elvora.data.response.map.MapResponse
 import com.unsoed.elvora.data.response.new.NewTransactionResponse
-import com.unsoed.elvora.data.response.subs.GetAllSubsResponse
 import com.unsoed.elvora.data.response.verify.CardResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -120,12 +120,7 @@ interface ApiService {
     @GET("transaction/user")
     suspend fun getAllSubscription(
         @Header("Authorization") token: String,
-    ): Response<GetAllSubsResponse>
-
-    @GET("transaction/active")
-    suspend fun getActiveSubscription(
-        @Header("Authorization") token: String,
-    ): Response<GetAllSubsResponse>
+    ): Response<SubsResponse>
 
     @GET("dashboard")
     suspend fun getDashboard(

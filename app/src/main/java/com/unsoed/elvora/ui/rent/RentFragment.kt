@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.databinding.FragmentRentBinding
 import com.unsoed.elvora.helper.RentModelFactory
 
@@ -21,10 +20,7 @@ class RentFragment : Fragment() {
     private val rentalViewModel: RentViewModel by viewModels {
         RentModelFactory.getInstance(requireContext())
     }
-    private var userModel: UserModel? = null
-    private var isPremium = false
-    private var premiumDone = false
-    private var userDone = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,32 +33,13 @@ class RentFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d("RentFragment", "InitViewFragment")
-        rentalViewModel.getTierUser().observe(viewLifecycleOwner) {
-            it?.let { data ->
-                isPremium = data
-                premiumDone = true
-            }
-        }
 
-        rentalViewModel.getUserSession().observe(viewLifecycleOwner) {
-            Log.d("RentFragment", "getSession")
-            it?.let {
-                userModel = it
-                userDone = true
-            }
-        }
+        val adapter = SectionsPagerAdapter(requireActivity())
+        binding.vpRental.adapter = adapter
+        TabLayoutMediator(binding.tabLayout, binding.vpRental) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
 
-        if(userDone && premiumDone) {
-            val adapter = SectionsPagerAdapter(requireActivity())
-            userModel?.let {
-                adapter.userModel = UserModel(email = it.email, fullName = it.fullName, token = it.token)
-            }
-            adapter.premium = isPremium
-            binding.vpRental.adapter = adapter
-            TabLayoutMediator(binding.tabLayout, binding.vpRental) { tab, position ->
-                tab.text = resources.getString(TAB_TITLES[position])
-            }.attach()
-        }
     }
 
     companion object {

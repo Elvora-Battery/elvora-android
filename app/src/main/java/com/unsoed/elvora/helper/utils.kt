@@ -52,8 +52,10 @@ fun formatDateString(inputDate: String): String? {
 }
 
 fun formatDatePlusOneMonth(inputDate: String): String {
-    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-    val date = format.parse(inputDate)
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+
+    val date = inputFormat.parse(inputDate)
 
     val calendar = Calendar.getInstance()
     if (date != null) {
@@ -61,5 +63,18 @@ fun formatDatePlusOneMonth(inputDate: String): String {
     }
     calendar.add(Calendar.MONTH, 1)
 
-    return format.format(calendar.time)
+    return outputFormat.format(calendar.time)
+}
+
+fun formatDate(inputDate: String): String {
+    val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    val outputFormat = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault())
+
+    val date = inputFormat.parse(inputDate)
+
+    return if (date != null) {
+        outputFormat.format(date)
+    } else {
+        "Invalid date"
+    }
 }

@@ -15,10 +15,11 @@ import com.google.android.material.shape.ShapeAppearanceModel
 import com.unsoed.elvora.R
 import com.unsoed.elvora.adapter.SubsAdapter
 import com.unsoed.elvora.data.ApiResult
-import com.unsoed.elvora.data.response.subs.ActiveSubsciption
-import com.unsoed.elvora.data.response.subs.AllSubsriptionsItem
+import com.unsoed.elvora.data.response.getSubs.ActiveSubscription
+import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.databinding.FragmentSubsBinding
 import com.unsoed.elvora.helper.SubsModelFactory
+import com.unsoed.elvora.helper.formatDate
 import com.unsoed.elvora.helper.formatDatePlusOneMonth
 import com.unsoed.elvora.ui.rent.RentalActivity
 
@@ -30,7 +31,7 @@ class SubsFragment : Fragment() {
         SubsModelFactory.getInstance(requireContext())
     }
     private var listSubs: List<AllSubsriptionsItem>? = null
-    private var activeSubs: ActiveSubsciption? = null
+    private var activeSubs: ActiveSubscription? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +49,7 @@ class SubsFragment : Fragment() {
     }
 
     private fun setupAction() {
-        binding.btnSubsNow.setOnClickListener {
+        binding.btnArrowNext.setOnClickListener {
             val intent = Intent(requireContext(), RentalActivity::class.java)
             intent.putExtra(RentalActivity.LIST_RENTAL, activeSubs)
             startActivity(intent)
@@ -77,10 +78,12 @@ class SubsFragment : Fragment() {
 
                     is ApiResult.Success -> {
                         listSubs = data.data.allSubsriptions
-                        activeSubs = data.data.activeSubsciption
+                        activeSubs = data.data.activeSubscription
                         listSubs?.let { subs ->
                             setupRecyclerView(subs)
                         }
+
+                        binding.cvTotalSubs.tvNumberSumary.text = data.data.allSubsriptions?.size.toString()
 
                         if(activeSubs != null) {
                             setupActiveSubs(activeSubs!!)
@@ -126,18 +129,19 @@ class SubsFragment : Fragment() {
 
         binding.cvTotalSubs.apply {
             tvTitleSumary.text = "Total Subs"
-            tvNumberSumary.text = listSubs?.size.toString()
             tvNumberSumary.setTextColor(requireActivity().getColor(R.color.blue_container2))
             tvTitleSumary.setTextColor(requireActivity().getColor(R.color.blue_container2))
             cvSummary.background = shapeDrawable2
         }
     }
 
-    private fun setupActiveSubs(activeSubs: ActiveSubsciption) {
+    private fun setupActiveSubs(activeSubs: ActiveSubscription) {
+        val formatDate = activeSubs.expirationDate?.let { formatDate(it) }
+
         binding.tvSubsIdBattery.text ="EV${activeSubs.id}"
         binding.tvSubsIdBatteryType.text = if(activeSubs.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
         binding.tvSubsMotorcycleName.text = activeSubs.batteryName
-        binding.tvSubsEndDate.text = "Ends on ${activeSubs.expirationDate.toString()}"
+        binding.tvSubsEndDate.text = "Ends on $formatDate"
         binding.tvSubsCountDay.text = "31"
         binding.tvSubsEndMonth.text = formatDatePlusOneMonth(activeSubs.createdAt!!)
     }
