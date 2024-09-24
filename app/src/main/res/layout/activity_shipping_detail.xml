@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.sumpayment.ShippingDetailActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            app:tint="@color/md_theme_scrim" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Shipping Details"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <TextView
+        android:id="@+id/tv_sd_title_name"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="20dp"
+        android:text="Name"
+        android:textColor="@color/md_theme_scrim"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_sd_input_name"
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:hint="Enter your name"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sd_title_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_sd_title_number"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Telephone Number"
+        android:textColor="@color/md_theme_scrim"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_sd_input_name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_sd_input_number"
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:hint="Enter your phone number"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sd_title_number">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_sd_title_street"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Street Name"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_sd_input_number" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_sd_input_street"
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:hint="Enter your street name"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sd_title_street">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_sd_title_village"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Village"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/md_theme_scrim"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_sd_input_street" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_sd_input_village"
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:hint="Enter your village name"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sd_title_village">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/tv_sd_title_address"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="District, City, Province, Pos Code"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_sd_input_village" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_sd_input_address"
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:hint="Enter your address"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        app:layout_constraintStart_toStartOf="@+id/tv_sd_title_number"
+        app:layout_constraintTop_toBottomOf="@+id/tv_sd_title_address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_shipping"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        tools:text="Save"
+        android:layout_marginBottom="28dp"
+        android:layout_marginHorizontal="18dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

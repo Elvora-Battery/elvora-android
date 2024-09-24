@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="16dp"
+        android:textStyle="bold"
+        android:text="This is your first rent"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Please verify your e-KTP and face to continue the battery rental process"/>
+
+    <Button
+        android:id="@+id/btn_verify_acc"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginVertical="16dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:layout_marginHorizontal="16dp"
+        android:text="Verify Now"/>
+
+</LinearLayout>

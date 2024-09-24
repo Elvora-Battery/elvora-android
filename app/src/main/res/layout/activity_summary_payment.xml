@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.sumpayment.SummaryPaymentActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            app:tint="@color/md_theme_scrim" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Summary and  Payment"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="18dp"
+        android:backgroundTint="#C0FFEC"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar2"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="14dp">
+
+            <TextView
+                android:id="@+id/tv_title_rental"
+                style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rental Package"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_battery_type"
+                style="@style/TextAppearance.Elvora.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="72V 20Ah Battery"
+                android:textColor="#009267"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_title_rental" />
+
+
+            <TextView
+                android:id="@+id/tv_battery_price"
+                style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/tv_battery_type"
+                app:layout_constraintTop_toBottomOf="@+id/tv_battery_type"
+                tools:text="Rp 250.000" />
+
+            <TextView
+                android:id="@+id/tv_month"
+                style="@style/TextAppearance.Elvora.BodyLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_battery_price"
+                app:layout_constraintStart_toEndOf="@+id/tv_battery_price"
+                app:layout_constraintTop_toTopOf="@+id/tv_battery_price"
+                android:text="/month" />
+
+            <TextView
+                android:id="@+id/tv_battery_desc"
+                style="@style/TextAppearance.Elvora.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="The mandatory rental period is 3 years"
+                app:layout_constraintStart_toStartOf="@+id/tv_battery_price"
+                app:layout_constraintTop_toBottomOf="@+id/tv_battery_price" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <include
+        android:id="@+id/cv_contact_payment"
+        layout="@layout/item_account_information"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <include
+        android:id="@+id/cv_payment_detail"
+        layout="@layout/card_item_order_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="18dp"
+        app:layout_constraintEnd_toEndOf="@+id/cv_contact_payment"
+        app:layout_constraintStart_toStartOf="@+id/cv_contact_payment"
+        app:layout_constraintTop_toBottomOf="@+id/cv_contact_payment" />
+
+    <Button
+        android:id="@+id/btn_pay_now"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="32dp"
+        android:text="Pay Now"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

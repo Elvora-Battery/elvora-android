@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+
+    <item android:drawable="@drawable/bg_button_profile_inactive" android:state_enabled="true" android:state_focused="false" android:state_pressed="false" />
+
+    <item android:drawable="@drawable/bg_button_profile_active" android:state_enabled="true" android:state_focused="false" android:state_pressed="true" />
+
+    <item android:drawable="@drawable/bg_button_profile_active" android:state_enabled="true" android:state_focused="true" android:state_pressed="false" />
+
+    <item android:drawable="@drawable/bg_btn_disabled" android:state_enabled="false" />
+</selector>

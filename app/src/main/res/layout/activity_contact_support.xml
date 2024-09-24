@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.help.ContactSupportActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            app:tint="@color/md_theme_scrim" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Contact Support"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/icon_email"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutEmail"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_email"
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:text="Email" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_profile"
+            android:drawableEnd="@drawable/icon_arrow_new"
+            android:drawableTint="@color/md_theme_scrim"
+            android:text="batteryelvora@gmail.com"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            android:textColor="@color/md_theme_scrim"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_whatsapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/icon_whatsapp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutWhatsapp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutWhatsapp"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutWhatsapp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_email"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutEmail">
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:text="WhatsApp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_whatsapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_profile"
+            android:drawableEnd="@drawable/icon_arrow_new"
+            android:drawableTint="@color/md_theme_scrim"
+            android:text="08126371291"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            android:textColor="@color/md_theme_scrim"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_w"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/icon_telp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayoutTelephone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutTelephone"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutTelephone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="32dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_email"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutWhatsapp">
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
+            android:text="Telephone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_telp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_button_profile"
+            android:drawableEnd="@drawable/icon_arrow_new"
+            android:drawableTint="@color/md_theme_scrim"
+            android:text="0239128731928"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            android:textColor="@color/md_theme_scrim"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

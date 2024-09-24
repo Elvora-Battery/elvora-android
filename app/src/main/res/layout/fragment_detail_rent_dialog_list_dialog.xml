@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginVertical="16dp"
+        android:textStyle="bold"
+        android:text="Service Details"/>
+
+
+    <TextView
+        style="@style/TextAppearance.Elvora.TitleMedium"
+        android:id="@+id/tv_battery_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+
+        android:textColor="#009267"
+        android:text="72V 20Ah Battery"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+            android:id="@+id/tv_dialog_battery_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rp 250.000" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyLarge"
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_battery_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_battery_price"
+            app:layout_constraintTop_toTopOf="@+id/tv_battery_price"
+            android:text="/month" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:id="@+id/tv_detail_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:textColor="@color/dark_grey"
+        android:text="The mandatory rental period is 3 years"
+        />
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:id="@+id/list_detail"
+        android:layout_marginHorizontal="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        />
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_grey"
+        android:textStyle="italic"
+        android:layout_marginHorizontal="24dp"
+        android:text="Note: Prices do not include handling fees."/>
+
+    <Button
+        android:id="@+id/btn_rent"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginVertical="16dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:layout_marginHorizontal="16dp"
+        android:text="Rental Now"/>
+</LinearLayout>

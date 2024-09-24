@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_monitoring"
+    android:layout_width="175dp"
+    android:layout_height="wrap_content"
+    app:strokeWidth="0dp"
+    app:cardCornerRadius="10dp"
+    app:cardPreventCornerOverlap="false"
+    tools:backgroundTint="#69B4DF"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        >
+
+        <TextView
+            android:id="@+id/title_card"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Battery"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_card_percentage"
+            style="@style/TextAppearance.Elvora.HeadlineSmallSemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="78 %"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/title_card"
+            app:layout_constraintTop_toBottomOf="@+id/title_card" />
+
+        <TextView
+            android:id="@+id/tv_card_estimate"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/tv_card_percentage"
+            app:layout_constraintTop_toBottomOf="@+id/tv_card_percentage"
+            tools:text="Est. distance 95km" />
+
+        <ImageView
+            android:id="@+id/iv_card_monitoring"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/icon_pencil_battery"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_card_estimate"
+            app:layout_constraintStart_toEndOf="@+id/tv_card_estimate"
+            app:layout_constraintTop_toTopOf="@+id/title_card" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

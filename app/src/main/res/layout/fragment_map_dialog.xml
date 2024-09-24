@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".ui.maps.MapDialogFragment">
+
+    <ImageView
+        android:id="@+id/iv_station"
+        android:layout_width="80dp"
+        android:layout_height="75dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitXY"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="42dp"
+        android:src="@drawable/placeholder_gas"/>
+
+    <TextView
+        android:id="@+id/tv_station_name"
+        style="@style/TextAppearance.Elvora.TitleMedium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/blue_container2"
+        android:textSize="18sp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_station"
+        app:layout_constraintTop_toTopOf="@+id/iv_station"
+        tools:text="Station Blue Ocean" />
+
+    <TextView
+        android:id="@+id/tv_station_street"
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/tv_station_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_name"
+        android:text="Jl. Setiabudi V" />
+
+    <TextView
+        android:id="@+id/tv_distance_station"
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/tv_station_street"
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_street"
+        tools:text="200 km from your location"
+        />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="22dp"
+        android:backgroundTint="#C0FFEC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_station"
+        app:strokeColor="#009267">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/tv_typeA"
+                style="@style/TextAppearance.Elvora.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="-4dp"
+                android:text="Type A"
+                android:textColor="#009267"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_value_typeA" />
+
+            <TextView
+                android:id="@+id/tv_value_typeA"
+                style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#009267"
+                app:layout_constraintEnd_toEndOf="@+id/tv_typeA"
+                app:layout_constraintStart_toStartOf="@+id/tv_typeA"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="4" />
+
+            <TextView
+                android:id="@+id/tv_typeB"
+                style="@style/TextAppearance.Elvora.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type B"
+                android:textColor="#009267"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_typeA" />
+
+            <TextView
+                android:id="@+id/tv_value_typeB"
+                style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#009267"
+                app:layout_constraintEnd_toEndOf="@+id/tv_typeB"
+                app:layout_constraintStart_toStartOf="@+id/tv_typeB"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="1" />
+
+            <TextView
+                android:id="@+id/tv_typeC"
+                style="@style/TextAppearance.Elvora.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type C"
+                android:textColor="#009267"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_typeA"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_value_typeA" />
+
+            <TextView
+                android:id="@+id/tv_value_typeC"
+                style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#009267"
+                app:layout_constraintEnd_toEndOf="@+id/tv_typeC"
+                app:layout_constraintStart_toStartOf="@+id/tv_typeC"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="2" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:background="@color/green_container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_value_typeB"
+                app:layout_constraintStart_toEndOf="@+id/tv_value_typeA"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="50dp"
+                android:background="@color/green_container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_value_typeC"
+                app:layout_constraintStart_toEndOf="@+id/tv_value_typeB"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <Button
+        android:id="@+id/btn_direction"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:text="Direction"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView3"
+        app:layout_constraintStart_toStartOf="@+id/materialCardView3"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
+        android:layout_marginVertical="17dp"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

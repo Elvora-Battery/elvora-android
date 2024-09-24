@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.sumpayment.PaymentMethodActivity">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar2"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="top"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_arrow_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow_back"
+                app:tint="@color/md_theme_scrim" />
+
+            <TextView
+                style="@style/TextAppearance.Elvora.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Payment Method"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#C0FFEC"
+                android:layout_marginTop="16dp"
+                app:strokeWidth="0dp"
+                android:layout_marginHorizontal="18dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="5dp"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="120dp"
+                        android:layout_height="62dp"
+                        android:layout_marginStart="6dp"
+                        android:src="@drawable/bg_card_rental_2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView11"
+                        android:layout_width="120dp"
+                        android:layout_height="62dp"
+                        android:layout_marginEnd="6dp"
+                        android:src="@drawable/bg_card_rental"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Payment Total"
+                        android:textColor="#009267"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_price_payment"
+                        style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11"
+                        tools:text="Rp 250.000" />
+
+                    <TextView
+                        android:id="@+id/tv_due_payment"
+                        style="@style/TextAppearance.Elvora.BodySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:textColor="@color/dark_grey"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_price_payment"
+                        android:text="Pay within 24 hours from now" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/TextAppearance.Elvora.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="Pilih Metode Pembayaran"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="16dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_virtual_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginVertical="16dp"
+                android:background="@drawable/bg_payment_method"
+                android:drawableStart="@drawable/icon_virtual_account"
+                android:drawableEnd="@drawable/icon_dropdown"
+                android:drawablePadding="16dp"
+                android:paddingHorizontal="16dp"
+                android:text="Transfer ke Virtual Account"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textAppearance="@style/TextAppearance.Elvora.LabelLarge" />
+
+            <RadioGroup
+                android:id="@+id/rg_virtual_account"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="18dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_payment_briva"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="6dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/icon_bank_bri"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Bank BRI"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_bni"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:layout_marginBottom="6dp"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/icon_bank_bni"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Bank BNI"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_bca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:layout_marginBottom="6dp"
+                    android:drawableEnd="@drawable/icon_bank_bca"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Bank BCA"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_mandiri"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:layout_marginBottom="6dp"
+                    android:drawableEnd="@drawable/icon_bank_mandiri"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Bank Mandiri"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_permata"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/icon_bank_permata"
+                    android:layout_marginBottom="6dp"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Bank Permata dan bank lainnya"/>
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_electronic_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_payment_method"
+                android:text="Uang Elektronik"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="16dp"
+                android:layout_marginVertical="16dp"
+                android:drawablePadding="16dp"
+                android:layout_marginHorizontal="18dp"
+                android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+                android:drawableEnd="@drawable/icon_dropdown"
+                android:textAllCaps="false"
+                android:drawableStart="@drawable/icon_wallet"/>
+
+            <RadioGroup
+                android:id="@+id/rg_virtual_wallet"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="18dp"
+                android:visibility="gone"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_payment_gopay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="6dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/gopay"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Gopay"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_dana"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:layout_marginBottom="6dp"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/dana"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Dana"/>
+
+                <RadioButton
+                    android:id="@+id/rb_payment_ovo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:layout_marginBottom="6dp"
+                    android:drawableEnd="@drawable/logo_ovo"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="OVO"/>
+            </RadioGroup>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_retail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_payment_method"
+                android:text="Pembayaran di Gerai Retail"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="16dp"
+                android:layout_marginVertical="16dp"
+                android:drawablePadding="16dp"
+                android:layout_marginHorizontal="18dp"
+                android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+                android:drawableEnd="@drawable/icon_dropdown"
+                android:textAllCaps="false"
+                android:drawableStart="@drawable/icon_retail"/>
+
+            <RadioGroup
+                android:id="@+id/rg_retail"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_marginHorizontal="18dp"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/rb_alfamart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_radio_payment"
+                    android:paddingVertical="12dp"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="6dp"
+                    app:buttonTint="@color/md_theme_scrim"
+                    android:textAlignment="textStart"
+                    android:drawableEnd="@drawable/logo_alfamart"
+                    android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+                    android:enabled="true"
+                    android:text="Alfamart"/>
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_payment"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginVertical="32dp"
+                android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+                app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+                android:text="Bayar"
+                android:layout_marginHorizontal="18dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

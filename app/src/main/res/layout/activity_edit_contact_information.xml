@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.profile.EditContactInformationActivity">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/btn_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            app:tint="@color/md_theme_scrim" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:text="Contact Information"/>
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Full Name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_edit_fullname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your full name"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Email"
+        android:drawablePadding="4dp"
+        android:drawableEnd="@drawable/icon_verify"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your email"
+        android:enabled="false"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="taftaraharjo@gmail.com"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Telephone Number" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_edit_telephone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:hintTextAppearance="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+        android:hint="Enter your number"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="64dp"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="18dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:text="Save"/>
+
+</LinearLayout>

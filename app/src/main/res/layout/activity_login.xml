@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.LoginActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/app_logo"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/dark_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Login to your account below"
+        android:gravity="center"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Email" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your email"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Password" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your password"
+        app:endIconMode="password_toggle"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        app:hintTextColor="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Forgot Password?"/>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginHorizontal="18dp"
+        android:enabled="false"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:text="Login"/>
+
+    <TextView
+        android:id="@+id/btn_direct_register"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:text="Don’t have an account? Register"/>
+
+</LinearLayout>

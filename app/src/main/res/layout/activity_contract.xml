@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.rent.ContractActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/btn_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            app:tint="@color/md_theme_scrim" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Contract"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btn_help_desk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/icon_help_desk"
+            app:tint="@color/md_theme_scrim" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gradient_color"
+            />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginVertical="20dp"
+            app:strokeWidth="0dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="@color/white"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                >
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.TitleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:text="BATTERY RENTAL CONTRACT"
+                />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:text="Number: EV2040/28082024/01"
+                />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="8dp"
+                    android:text="On this day, 28 August 2024, an agreement has been made between:"
+                />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="First Party: "
+                    android:textColor="@color/dark_grey"
+                />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name: PT Elvora\nAddress: Kuningan, Jakarta Selatan \nPhone Number: +02319281371 \nIn this matter acting for and on behalf of the battery rental company Elvora, hereinafter referred to as the Lessor."
+                    android:textColor="@color/dark_grey"
+                />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Second Party: "
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name: Susi Setianingsih\nAddress: Desa Purwasaba RT05/RW01, Kec. Mandiraja, Kab. Banjarnegara, Jawa Tengah 53473\nPhone Number: 081316250182\nNIK KTP: 33039182183712\nIn this matter acting for and on behalf of themselves, hereinafter referred to as the Lessee."
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 1 Object of the Agreement"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_1"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 2 Rental Period"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_2"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 3 Rental Fee and Payment"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_3"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 4 Obligations of the Second Party"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_4"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 5 Termination of the Contract"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_5"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 6 Miscellaneous"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_6"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmallSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Article 7 Closing"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_article_7"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Banjarnegara, 28 August 2024"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="First Party,"
+                    android:textColor="@color/dark_grey"
+                    />
+                
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/barcode"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="CEO of Elvora\nPT Elvora"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Second Party,"
+                    android:textColor="@color/dark_grey"
+                    />
+
+                <TextView
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="[Create a Signature]"
+                    android:textColor="#0282CC"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_name_contract"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="Muhammad Althaaf Abqary"
+                    android:textColor="@color/dark_grey"
+                    />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+</LinearLayout>

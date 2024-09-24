@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="150dp"
+        >
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container_header"
+                android:layout_width="match_parent"
+                android:layout_height="215dp"
+                android:background="@drawable/gradient_color"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/icon_star"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_tier_member"
+                    style="@style/TextAppearance.Elvora.BodySmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:lineHeight="0dp"
+                    android:paddingTop="2dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+                    app:layout_constraintStart_toEndOf="@+id/imageView2"
+                    app:layout_constraintTop_toTopOf="@+id/imageView2"
+                    tools:text="Premium Member" />
+
+                <TextView
+                    android:id="@+id/tv_name_member"
+                    style="@style/TextAppearance.Elvora.TitleMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_member"
+                    app:layout_constraintStart_toStartOf="@+id/imageView2"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_tier_member"
+                    tools:text="Muhammad Althaaf Abqary" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_member"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:layout_marginEnd="18dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_name_member"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_tier_member"
+                    app:shapeAppearance="@style/ShapeAppearanceOverlay.Elvora.CornerSize50Percent"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginBottom="8dp"
+                android:backgroundTint="@color/white"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/tv_id_battery"
+                        style="@style/TextAppearance.Elvora.BodySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="0dp"
+                        android:lineSpacingMultiplier="0"
+                        android:textColor="@color/dark_grey"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="EV2001" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/circle_shape"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_id_battery"
+                        app:layout_constraintStart_toEndOf="@+id/tv_id_battery"
+                        app:layout_constraintTop_toTopOf="@+id/tv_id_battery" />
+
+                    <TextView
+                        android:id="@+id/tv_id_battery_type"
+                        style="@style/TextAppearance.Elvora.BodySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:lineSpacingExtra="0dp"
+                        android:lineSpacingMultiplier="0"
+                        android:textColor="@color/dark_grey"
+                        app:layout_constraintStart_toEndOf="@+id/view"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="72V 40Ah Battery" />
+
+                    <TextView
+                        android:id="@+id/tv_motorcycle_name"
+                        style="@style/TextAppearance.Elvora.HeadlineSmallSemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="0dp"
+                        android:lineSpacingMultiplier="0"
+                        android:textColor="@color/md_theme_scrim"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/tv_id_battery"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_id_battery"
+                        tools:text="Motor EV200 Vision" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginTop="4dp"
+                        android:src="@drawable/icon_location"
+                        app:layout_constraintStart_toStartOf="@+id/tv_motorcycle_name"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_motorcycle_name" />
+
+                    <TextView
+                        android:id="@+id/tv_member_location"
+                        style="@style/TextAppearance.Elvora.BodySmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:textColor="#0282CC"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="@+id/imageView3"
+                        tools:text="Mandiraja, Banjarnegara, Jawa Tengah" />
+
+                    <Button
+                        style="?attr/materialButtonOutlinedStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Activate Now"
+                        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+                        android:textColor="#FFB13D"
+                        app:layout_constraintStart_toStartOf="@+id/imageView3"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_member_location"
+                        app:strokeColor="#FFB13D" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:text="Battery Information"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+        <include
+            android:id="@+id/card_battery_monitoring"
+            layout="@layout/card_item_monitoring"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <include
+            android:id="@+id/card_temp_monitoring"
+            layout="@layout/card_item_monitoring"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_battery_monitoring" />
+
+        <include
+            android:id="@+id/card_consumption"
+            layout="@layout/card_item_summary"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@+id/card_battery_monitoring"
+            app:layout_constraintTop_toBottomOf="@+id/card_battery_monitoring" />
+
+        <include
+            android:id="@+id/card_distance"
+            layout="@layout/card_item_summary"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/card_time"
+            app:layout_constraintStart_toEndOf="@+id/card_consumption"
+            app:layout_constraintTop_toBottomOf="@+id/card_battery_monitoring" />
+
+        <include
+            android:id="@+id/card_time"
+            layout="@layout/card_item_summary"
+            android:layout_width="115dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_battery_monitoring" />
+
+        <TextView
+            android:id="@+id/textView6"
+            style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Statistics"
+            app:layout_constraintStart_toStartOf="@+id/card_consumption"
+            app:layout_constraintTop_toBottomOf="@+id/card_distance" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/state_statistic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+        <TextView
+            android:id="@+id/tv_state_statistic"
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="No statistics available"
+            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toStartOf="@+id/imageView4"
+            app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

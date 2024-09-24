@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.unsoed.elvora.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/navigation_help"
+        android:name="com.unsoed.elvora.ui.help.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" >
+        <action
+            android:id="@+id/action_navigation_help_to_faqActivity"
+            app:destination="@id/faqActivity" />
+        <action
+            android:id="@+id/action_navigation_help_to_contactSupportActivity"
+            app:destination="@id/contactSupportActivity" />
+        <action
+            android:id="@+id/action_navigation_help_to_tnCActivity"
+            app:destination="@id/tnCActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_rent"
+        android:name="com.unsoed.elvora.ui.rent.RentFragment"
+        android:label="fragment_rent"
+        tools:layout="@layout/fragment_rent" />
+    <fragment
+        android:id="@+id/navigation_subs"
+        android:name="com.unsoed.elvora.ui.subs.SubsFragment"
+        android:label="fragment_subs"
+        tools:layout="@layout/fragment_subs" />
+    <activity
+        android:id="@+id/faqActivity"
+        android:name="com.unsoed.elvora.ui.faq.FaqActivity"
+        android:label="activity_faq"
+        tools:layout="@layout/activity_faq" />
+    <activity
+        android:id="@+id/contactSupportActivity"
+        android:name="com.unsoed.elvora.ui.help.ContactSupportActivity"
+        android:label="activity_contact_support"
+        tools:layout="@layout/activity_contact_support" />
+    <activity
+        android:id="@+id/tnCActivity"
+        android:name="com.unsoed.elvora.ui.help.TnCActivity"
+        android:label="activity_tn_cactivity"
+        tools:layout="@layout/activity_tn_cactivity" />
+
+
+</navigation>

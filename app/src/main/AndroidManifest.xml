@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Elvora"
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.verification.IdentifyVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.verification.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.SetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.VerifyEmailActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAl4nw5P34U8s-C5sLD9sgBhR06QKS3KHc" />
+
+        <activity
+            android:name=".ui.maps.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.verification.CompleteVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.verification.FaceVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.verification.CardVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.sumpayment.PaymentMethodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.help.TnCActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.rent.ContractActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.rent.RentalInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.rent.RentalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.help.ContactSupportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.subs.DetailTransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ArticleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.subs.TransactionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.sumpayment.ShippingDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.rent.ActivateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.EditContactInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.faq.AccountVerificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.sumpayment.SummaryPaymentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.AccountInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.faq.FaqActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

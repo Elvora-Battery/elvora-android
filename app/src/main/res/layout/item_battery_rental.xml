@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:strokeWidth="0dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="12dp"
+    android:layout_marginHorizontal="18dp"
+    android:layout_marginVertical="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:backgroundTint="#C0FFEC"
+    android:layout_gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="190dp"
+            android:layout_height="105dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/bg_card_rental"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
+            android:id="@+id/tv_battery_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginHorizontal="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rp 250.000" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyLarge"
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_battery_price"
+            app:layout_constraintStart_toEndOf="@+id/tv_battery_price"
+            app:layout_constraintTop_toTopOf="@+id/tv_battery_price"
+            tools:text="/month" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:id="@+id/tv_battery_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#009267"
+            android:text="72V 20Ah Battery"
+            app:layout_constraintStart_toStartOf="@+id/tv_battery_price"
+            app:layout_constraintTop_toBottomOf="@+id/tv_battery_price" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:id="@+id/tv_battery_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="The mandatory rental period is 3 years"
+            app:layout_constraintStart_toStartOf="@+id/tv_battery_type"
+            app:layout_constraintTop_toBottomOf="@+id/tv_battery_type" />
+
+        <Button
+            android:id="@+id/btn_rent"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="16dp"
+            android:text="Rental Now"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_battery_desc" />
+
+        <Button
+            android:id="@+id/btn_desc"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="6dp"
+            android:text="Detail"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_rent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_rent"
+            app:layout_constraintTop_toTopOf="@+id/btn_rent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

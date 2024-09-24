@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="center"
+    app:cardCornerRadius="16dp"
+    android:layout_marginBottom="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="18dp">
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/icon_electric"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_cv_date_purchase"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_cv_id_battery" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:id="@+id/tv_cv_id_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            android:layout_marginStart="16dp"
+            tools:text="EV2001"
+            app:layout_constraintStart_toEndOf="@+id/imageView9"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:id="@+id/tv_cv_name_motor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cv_id_battery"
+            tools:text="Motor EV200 Vision" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:id="@+id/tv_cv_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#0282CC"
+            app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cv_name_motor"
+            tools:text="Ends on 28 January 2027" />
+
+        <TextView
+            android:id="@+id/tv_cv_date_purchase"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/dark_grey"
+            app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cv_end_date"
+            tools:text="28 January 2023, 14:08 WIB" />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
+            android:layout_width="wrap_content"
+            android:textStyle="italic"
+            android:layout_height="wrap_content"
+            android:textColor="#219317"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Selected" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

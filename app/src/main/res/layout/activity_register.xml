@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.auth.RegisterActivity">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="54dp"
+        android:layout_marginTop="52dp"
+        android:src="@drawable/app_logo"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/dark_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Register your account below"
+        android:gravity="center"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Full Name" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your full name"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_register_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:textColor="@color/md_theme_scrim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Email" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Elvora.TextInputLayout"
+        android:id="@+id/et_input_register_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your email"
+        android:layout_marginHorizontal="18dp"
+        android:textColorHint="@color/dark_grey"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/iet_register_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:fontFamily="@font/poppins_regular"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+            android:textAlignment="textStart"
+            />
+        
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="I accept the "/>
+
+        <TextView
+            android:id="@+id/tv_tnc"
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_container2"
+            android:text="Terms of Service "/>
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodyMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/md_theme_scrim"
+            android:text="as well as"/>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_privacy_policy"
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="65dp"
+        android:layout_marginTop="-12dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue_container2"
+        android:text="Privacy Policy"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="18dp"
+        android:enabled="false"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:text="Register"/>
+
+    <TextView
+        style="@style/TextAppearance.Elvora.BodyMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:text="Already have an account? Login"/>
+
+</LinearLayout>
