@@ -65,7 +65,7 @@ class SubsFragment : Fragment() {
             it?.let { data ->
                 when(data) {
                     is ApiResult.Loading -> {
-
+                        binding.ltLoading.visibility = View.VISIBLE
                     }
 
                     ApiResult.Empty -> {
@@ -74,9 +74,11 @@ class SubsFragment : Fragment() {
 
                     is ApiResult.Error -> {
                         Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
+                        binding.ltLoading.visibility = View.GONE
                     }
 
                     is ApiResult.Success -> {
+                        binding.ltLoading.visibility = View.GONE
                         listSubs = data.data.allSubsriptions
                         activeSubs = data.data.activeSubscription
                         listSubs?.let { subs ->
@@ -143,7 +145,7 @@ class SubsFragment : Fragment() {
         binding.tvSubsMotorcycleName.text = activeSubs.batteryName
         binding.tvSubsEndDate.text = "Ends on $formatDate"
         binding.tvSubsCountDay.text = "31"
-        binding.tvSubsEndMonth.text = formatDatePlusOneMonth(activeSubs.createdAt!!)
+        binding.tvSubsEndMonth.text = "Until ${formatDatePlusOneMonth(activeSubs.createdAt!!)}"
     }
 
     private fun setupRecyclerView(listSubs: List<AllSubsriptionsItem>) {

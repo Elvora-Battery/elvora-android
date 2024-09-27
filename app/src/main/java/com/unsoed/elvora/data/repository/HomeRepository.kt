@@ -13,8 +13,8 @@ import com.unsoed.elvora.data.UserVerify
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
-import com.unsoed.elvora.data.response.home.Data
-import com.unsoed.elvora.data.response.map.MapResponse
+import com.unsoed.elvora.data.response.home.DashboardResponse
+import com.unsoed.elvora.data.response.map.StationsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withContext
@@ -45,7 +45,7 @@ class HomeRepository(
         return dataStore.clearUser()
     }
 
-    fun getStationRecommendation(mapRequest: MapRequest): LiveData<ApiResult<MapResponse>> {
+    fun getStationRecommendation(mapRequest: MapRequest): LiveData<ApiResult<List<StationsItem>>> {
         return liveData {
             try {
                 emit(ApiResult.Loading)
@@ -53,7 +53,7 @@ class HomeRepository(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        emit(ApiResult.Success(responseBody))
+                        emit(ApiResult.Success(responseBody.stations!!))
                     }
                 } else {
                     Log.e(TAG, "Error Maps Recommendation")
@@ -74,7 +74,49 @@ class HomeRepository(
         }
     }
 
-    fun getDashboardData(): LiveData<ApiResult<Data>> {
+    fun changePassword(
+        currentPassword: String,
+        newPassword: String,
+        confirmPassword: String
+    ): LiveData<ApiResult<String>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.changePassword(
+                    token = "Bearer ${tokenUser?.token}",
+                    currentPassword,
+                    newPassword,
+                    confirmPassword
+                )
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        emit(ApiResult.Success(responseBody.message!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error changePassword")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    Log.e(TAG, "Error: $errorResponse")
+
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(
+                        ApiResult.Error(
+                            errorMessage.message ?: "Unknown Error in changePassword"
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
+    fun getDashboardData(): LiveData<ApiResult<DashboardResponse>> {
         return liveData {
             val tokenUser = withContext(Dispatchers.IO) {
                 dataStore.getUser().firstOrNull()
@@ -86,7 +128,7 @@ class HomeRepository(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        emit(ApiResult.Success(responseBody.data!!))
+                        emit(ApiResult.Success(responseBody))
                     }
                 } else {
                     Log.e(TAG, "Error getDashboardData")

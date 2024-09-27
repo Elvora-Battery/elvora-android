@@ -127,6 +127,7 @@ class AuthRepository(
                                 token = responseBody.data.token!!,
                             )
                         )
+                        dataStore.saveUserPremium(responseBody.data.user.verify!!)
                     }
                 } else {
                     Log.e(TAG, "Error login")

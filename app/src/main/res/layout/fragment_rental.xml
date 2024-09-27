@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginVertical="12dp"
+    android:layout_marginTop="18dp"
     android:id="@+id/rv_rental"
     tools:context=".ui.rent.RentalFragment"/>

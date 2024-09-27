@@ -8,6 +8,7 @@ import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
+import com.unsoed.elvora.data.response.active.DataItem
 import com.unsoed.elvora.data.response.getSubs.Data
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -43,6 +44,64 @@ class SubsRepository(private val apiService: ApiService, private val dataStore: 
             }
         }
     }
+    fun getTransactionById(id: Int): LiveData<ApiResult<com.unsoed.elvora.data.response.transactionId.Data>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.getTransactionById(
+                    token = "Bearer ${tokenUser?.token}",
+                    id = id
+                )
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if(responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error Get Subs")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(ApiResult.Error(errorMessage.message ?: "Unknown Error get All subs"))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+    fun getActiveSubs(): LiveData<ApiResult<List<DataItem>>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.getActiveSubs(
+                    token = "Bearer ${tokenUser?.token}",
+                )
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if(responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error getActiveSubs")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(ApiResult.Error(errorMessage.message ?: "Unknown Error getActiveSubs"))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
     fun changeBatteryName(id: Int, name: String): LiveData<ApiResult<String>> {
         return liveData {
             try {
@@ -57,13 +116,14 @@ class SubsRepository(private val apiService: ApiService, private val dataStore: 
                         emit(ApiResult.Success(responseBody.message!!))
                     }
                 } else {
-                    Log.e(TAG, "Error changeBatteryName")
+                    Log.e(TAG, "Error ")
                     val gson = Gson()
                     val errorResponse = response.errorBody()?.string()
                     val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
                     emit(ApiResult.Error(errorMessage.message ?: "Unknown Error changeBatteryName"))
                 }
             } catch (e: Exception) {
+                Log.e(TAG, "Error Ganti Nama Baterai ${e.message}")
                 emit(ApiResult.Error(e.message ?: "Unknown Error"))
             }
         }

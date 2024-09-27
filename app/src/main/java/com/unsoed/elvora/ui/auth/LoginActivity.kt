@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -47,7 +48,8 @@ class LoginActivity : AppCompatActivity() {
                 it?.let { data ->
                     when(data) {
                         is ApiResult.Loading -> {
-
+                            binding.ltLoading.visibility = View.VISIBLE
+                            binding.btnLogin.visibility = View.GONE
                         }
 
                         ApiResult.Empty -> {
@@ -55,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
                         }
 
                         is ApiResult.Error -> {
+                            binding.ltLoading.visibility = View.GONE
+                            binding.btnLogin.visibility = View.VISIBLE
                             Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
                         }
 

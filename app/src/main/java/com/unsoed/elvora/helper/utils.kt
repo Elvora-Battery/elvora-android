@@ -8,6 +8,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -77,4 +78,8 @@ fun formatDate(inputDate: String): String {
     } else {
         "Invalid date"
     }
+}
+
+fun formatNumber(value: Int): String {
+    return NumberFormat.getNumberInstance(Locale("id", "ID")).format(value)
 }

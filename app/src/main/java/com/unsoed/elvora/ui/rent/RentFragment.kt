@@ -7,19 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.unsoed.elvora.R
 import com.unsoed.elvora.databinding.FragmentRentBinding
-import com.unsoed.elvora.helper.RentModelFactory
 
 class RentFragment : Fragment() {
 
     private var _binding: FragmentRentBinding? = null
     private val binding get() = _binding!!
-    private val rentalViewModel: RentViewModel by viewModels {
-        RentModelFactory.getInstance(requireContext())
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -45,7 +45,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_input_code"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Enter your verification code"
@@ -104,5 +105,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lt_loading"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

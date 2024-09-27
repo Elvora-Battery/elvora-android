@@ -4,11 +4,13 @@ import com.unsoed.elvora.data.MapRequest
 import com.unsoed.elvora.data.response.BasicResponse
 import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.PaidTransactionResponse
+import com.unsoed.elvora.data.response.active.ActiveSubsResponse
 import com.unsoed.elvora.data.response.auth.LoginResponse
 import com.unsoed.elvora.data.response.getSubs.SubsResponse
 import com.unsoed.elvora.data.response.home.DashboardResponse
 import com.unsoed.elvora.data.response.map.MapResponse
 import com.unsoed.elvora.data.response.new.NewTransactionResponse
+import com.unsoed.elvora.data.response.transactionId.TransactionResponse
 import com.unsoed.elvora.data.response.verify.CardResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -85,6 +87,15 @@ interface ApiService {
     ): Response<NewTransactionResponse>
 
     @FormUrlEncoded
+    @PATCH("update-password")
+    suspend fun changePassword(
+        @Header("Authorization") token: String,
+        @Field("currentPassword") currentPassword: String,
+        @Field("newPassword") newPassword: String,
+        @Field("confirmNewPassword") confirmNewPassword: String,
+    ): Response<CommonResponse>
+
+    @FormUrlEncoded
     @POST("transaction/paid")
     suspend fun transactionPaid(
         @Header("Authorization") token: String,
@@ -121,11 +132,23 @@ interface ApiService {
     suspend fun getAllSubscription(
         @Header("Authorization") token: String,
     ): Response<SubsResponse>
+    @GET("transaction/{id}")
+    suspend fun getTransactionById(
+        @Header("Authorization") token: String,
+        @Path("id") id: Int,
+    ): Response<TransactionResponse>
+
+    @GET("transaction/active")
+    suspend fun getActiveSubs(
+        @Header("Authorization") token: String,
+    ): Response<ActiveSubsResponse>
 
     @GET("dashboard")
     suspend fun getDashboard(
         @Header("Authorization") token: String,
     ): Response<DashboardResponse>
+
+    @FormUrlEncoded
     @PATCH("transaction/update/{id}")
     suspend fun changeBatteryName(
         @Path("id") id: Int,

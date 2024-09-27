@@ -141,6 +141,11 @@
         <item name="android:fontFamily">@font/poppins_semi_bold</item>
     </style>
 
+    <style name="TextAppearance.Elvora.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
     <style name="TextAppearance.Elvora.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
         <item name="fontFamily">@font/poppins_semi_bold</item>
         <item name="android:fontFamily">@font/poppins_semi_bold</item>

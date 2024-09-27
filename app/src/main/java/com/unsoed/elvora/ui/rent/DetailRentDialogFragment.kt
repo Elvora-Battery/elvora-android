@@ -73,7 +73,7 @@ class DetailRentDialogFragment : BottomSheetDialogFragment() {
         const val DESC = "desc"
         const val NAME = "name"
         const val ID = "id"
-        const val PREMIUM = "id"
+        const val PREMIUM = "premium"
     }
 
     override fun onDestroyView() {

@@ -47,6 +47,11 @@ class HomeFragment : Fragment() {
 
         initView()
         setupViewFragment()
+        setupCardDriveTime()
+        setupCardBattery()
+        setupCardConsumption()
+        setupCardDistance()
+        setupCardTemperature()
     }
 
     private fun initView() {
@@ -95,9 +100,7 @@ class HomeFragment : Fragment() {
         val shapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
 
         binding.cardTime.apply {
-            tvTitleSumary.text = "Drive Time"
-            tvNumberSumary.text = "-"
-            tvSatuanSumary.text = "h"
+            tvTitleSumary.text = "Arus"
             cvSummary.background = shapeDrawable
         }
     }
@@ -113,9 +116,7 @@ class HomeFragment : Fragment() {
         val shapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
 
         binding.cardDistance.apply {
-            tvTitleSumary.text = "Total Distance"
-            tvNumberSumary.text = "-"
-            tvSatuanSumary.text = "Km"
+            tvTitleSumary.text = "Tegangan"
             cvSummary.background = shapeDrawable
         }
     }
@@ -132,7 +133,6 @@ class HomeFragment : Fragment() {
 
         binding.cardConsumption.apply {
             tvTitleSumary.text = "Usage Rate"
-            tvNumberSumary.text = "${batteryData?.dayaDigunakan}"
             tvSatuanSumary.text = "KwH"
             cvSummary.background = shapeDrawable
         }
@@ -147,8 +147,6 @@ class HomeFragment : Fragment() {
                 )
             )
             titleCard.text = "Temperature"
-            tvCardPercentage.text = "${batteryData?.suhu}°C"
-            tvCardEstimate.text = "Good Condition"
             cvMonitoring.setCardBackgroundColor(requireContext().getColor(R.color.green_container))
         }
     }
@@ -162,18 +160,17 @@ class HomeFragment : Fragment() {
                 )
             )
             titleCard.text = "Daya"
-            tvCardPercentage.text = batteryData?.daya
-            tvCardEstimate.text = "Est. distance 95km"
+            tvCardEstimate.text = "Est. distance -km"
             cvMonitoring.setCardBackgroundColor(requireContext().getColor(R.color.blue_container))
         }
     }
 
     private fun setupViewFragment() {
         homeViewModel.getDashboardData().observe(viewLifecycleOwner) {
-            it?.let { data ->
-                when (data) {
+            it?.let { response ->
+                when (response) {
                     is ApiResult.Loading -> {
-
+                        binding.ltLoading.visibility = View.VISIBLE
                     }
 
                     ApiResult.Empty -> {
@@ -181,40 +178,56 @@ class HomeFragment : Fragment() {
                     }
 
                     is ApiResult.Error -> {
-                        Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                        binding.ltLoading.visibility = View.GONE
                         binding.cvLayoutDashboard.visibility = View.INVISIBLE
                         binding.tvEmptySubs.visibility = View.VISIBLE
-                        setupCardDriveTime()
-                        setupCardBattery()
-                        setupCardConsumption()
-                        setupCardDistance()
-                        setupCardTemperature()
                     }
 
                     is ApiResult.Success -> {
-                        if (data.data.transaction != null && data.data.battery != null) {
-                            batteryData = data.data.battery
-                            transactionData = data.data.transaction
-                            setupCardBattery()
-                            setupCardTemperature()
-                            setupCardConsumption()
-                            setupCardDistance()
-                            setupCardDriveTime()
-                            binding.apply {
-                                tvIdBattery.text = "EV${data.data.transaction.id}"
-                                tvIdBatteryType.text =
-                                    if (data.data.transaction.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
-                                tvMotorcycleName.text = data.data.transaction.batteryName
-                                ivMember.setImageDrawable(
-                                    AppCompatResources.getDrawable(
-                                        requireContext(),
-                                        R.drawable.avatar3
-                                    )
-                                )
+                        Toast.makeText(requireContext(), response.data.message, Toast.LENGTH_SHORT).show()
+
+                        if (response.data.data?.transaction != null) {
+                            binding.ltLoading.visibility = View.GONE
+                            binding.tvEmptySubs.visibility = View.GONE
+                            transactionData = response.data.data.transaction
+
+                            transactionData?.let { transaction ->
+                                binding.apply {
+                                    tvIdBattery.text = "EV${transaction.id}"
+                                    tvIdBatteryType.text = if (transaction.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
+                                    tvMotorcycleName.text = transaction.batteryName
+                                }
                             }
                         } else {
-                            binding.cvLayoutDashboard.visibility = View.INVISIBLE
+                            binding.ltLoading.visibility = View.VISIBLE
                             binding.tvEmptySubs.visibility = View.VISIBLE
+                        }
+
+                        if(response.data.data?.battery != null) {
+                            batteryData = response.data.data.battery
+                            batteryData?.let { battery ->
+                                binding.apply {
+                                    cardTempMonitoring.tvCardPercentage.text = "${battery.suhu ?: "-"}%"
+                                    cardTempMonitoring.tvCardEstimate.text = if(battery.suhu.isNullOrEmpty()) "Unknown Condition" else "Good Condition"
+                                    cardConsumption.tvNumberSumary.text = "${battery.dayaDigunakan ?: "-"}"
+                                    cardConsumption.tvSatuanSumary.text = "KwH"
+                                    cardTime.tvNumberSumary.text = "${battery.arus ?: "-"}"
+                                    cardTime.tvSatuanSumary.text = "A"
+                                    cardDistance.tvNumberSumary.text = "${battery.tegangan ?: "-"}"
+                                    cardDistance.tvSatuanSumary.text = "V"
+                                    cardBatteryMonitoring.tvCardPercentage.text = "${battery.daya ?: "-"}°C"
+                                }
+                            }
+                        } else {
+                            binding.apply {
+                                cardTempMonitoring.tvCardEstimate.text = "Unknown Condition"
+                                cardConsumption.tvNumberSumary.text = "-"
+                                cardTime.tvNumberSumary.text = "-"
+                                cardDistance.tvNumberSumary.text = "-"
+                                cardBatteryMonitoring.tvCardPercentage.text = "-"
+                                cardTempMonitoring.tvCardPercentage.text = "-"
+                            }
                         }
                     }
                 }

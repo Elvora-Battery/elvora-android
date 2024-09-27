@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.rent
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
@@ -50,7 +51,8 @@ class ActivateActivity : AppCompatActivity() {
                         it?.let { data ->
                             when(data) {
                                 is ApiResult.Loading -> {
-
+                                    binding.ltLoading.visibility = View.VISIBLE
+                                    binding.btnActivate.visibility = View.GONE
                                 }
 
                                 ApiResult.Empty -> {
@@ -58,6 +60,8 @@ class ActivateActivity : AppCompatActivity() {
                                 }
 
                                 is ApiResult.Error -> {
+                                    binding.ltLoading.visibility = View.GONE
+                                    binding.btnActivate.visibility = View.VISIBLE
                                     Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
                                 }
 

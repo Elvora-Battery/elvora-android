@@ -5,7 +5,10 @@ import com.google.gson.annotations.SerializedName
 data class DashboardResponse(
 
 	@field:SerializedName("data")
-	val data: Data? = null
+	val data: Data? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
 data class Transaction(
@@ -21,9 +24,6 @@ data class Transaction(
 
 	@field:SerializedName("rent_type_id")
 	val rentTypeId: Int? = null,
-
-	@field:SerializedName("status")
-	val status: String? = null
 )
 
 data class Data(

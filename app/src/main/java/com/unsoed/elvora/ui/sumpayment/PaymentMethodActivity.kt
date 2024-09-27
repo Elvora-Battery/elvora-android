@@ -20,6 +20,8 @@ class PaymentMethodActivity : AppCompatActivity() {
     private var clickButtonVw: Boolean = false
     private var clickButtonRetail: Boolean = false
 
+    var selectedRadio = false
+
     private var idTransaction = 0
     private var totalSum: String = ""
     private var batteryType: String = ""
@@ -150,8 +152,20 @@ class PaymentMethodActivity : AppCompatActivity() {
         binding.btnVirtualAccount.setOnClickListener {
             if (clickButtonVa) {
                 binding.rgVirtualAccount.visibility = View.GONE
+                binding.btnElectronicWallet.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.icon_virtual_account
+                    ), null, AppCompatResources.getDrawable(this, R.drawable.icon_dropdown), null
+                )
             } else {
                 binding.rgVirtualAccount.visibility = View.VISIBLE
+                binding.btnRetail.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.icon_virtual_account
+                    ), null, AppCompatResources.getDrawable(this, R.drawable.icon_arrow_up), null
+                )
             }
             clickButtonVa = !clickButtonVa
         }
@@ -159,7 +173,19 @@ class PaymentMethodActivity : AppCompatActivity() {
         binding.btnElectronicWallet.setOnClickListener {
             if (clickButtonVw) {
                 binding.rgVirtualWallet.visibility = View.GONE
+                binding.btnElectronicWallet.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.icon_wallet
+                    ), null, AppCompatResources.getDrawable(this, R.drawable.icon_dropdown), null
+                )
             } else {
+                binding.btnRetail.setCompoundDrawablesWithIntrinsicBounds(
+                    AppCompatResources.getDrawable(
+                        this,
+                        R.drawable.icon_wallet
+                    ), null, AppCompatResources.getDrawable(this, R.drawable.icon_arrow_up), null
+                )
                 binding.rgVirtualWallet.visibility = View.VISIBLE
             }
             clickButtonVw = !clickButtonVw

@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.sumpayment
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
@@ -84,7 +85,8 @@ class ShippingDetailActivity : AppCompatActivity() {
                             it?.let { data ->
                                 when(data) {
                                     is ApiResult.Loading -> {
-
+                                        binding.btnShipping.visibility = View.GONE
+                                        binding.ltLoading.visibility = View.VISIBLE
                                     }
 
                                     ApiResult.Empty -> {
@@ -92,6 +94,8 @@ class ShippingDetailActivity : AppCompatActivity() {
                                     }
 
                                     is ApiResult.Error -> {
+                                        binding.btnShipping.visibility = View.VISIBLE
+                                        binding.ltLoading.visibility = View.GONE
                                         Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
                                     }
 

@@ -19,6 +19,10 @@ class ChangeNameDialogFragment : BottomSheetDialogFragment() {
     }
     private var nameChangeListener: OnNameChangeListener? = null
 
+    fun changeBatteryName(nameListener: OnNameChangeListener) {
+        nameChangeListener = nameListener
+    }
+
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -85,5 +89,6 @@ class ChangeNameDialogFragment : BottomSheetDialogFragment() {
         const val TAG = "ModalChangeBottomSheet"
         const val BATTERY_NAME = "battery_name"
         const val BATTERY_ID = "battery_id"
+
     }
 }

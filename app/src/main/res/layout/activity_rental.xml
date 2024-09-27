@@ -33,86 +33,31 @@
             android:textStyle="bold" />
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cv_rental"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:cardCornerRadius="16dp"
-        android:layout_marginTop="24dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_list_active_subs"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginVertical="16dp"
         android:layout_marginHorizontal="18dp"
+        tools:listitem="@layout/card_item_rental"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar">
+        app:layout_constraintTop_toBottomOf="@+id/materialToolbar" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="18dp">
 
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@drawable/icon_electric"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_cv_date_purchase"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_cv_id_battery" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lt_loading"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
-            <TextView
-                android:id="@+id/tv_cv_id_battery"
-                style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/dark_grey"
-                app:layout_constraintStart_toEndOf="@+id/imageView9"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="EV2001" />
-
-            <TextView
-                android:id="@+id/tv_cv_name_motor"
-                style="@style/TextAppearance.Elvora.TitleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cv_id_battery"
-                tools:text="Motor EV200 Vision" />
-
-            <TextView
-                android:id="@+id/tv_cv_end_date"
-                style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#0282CC"
-                app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cv_name_motor"
-                tools:text="Ends on 28 January 2027" />
-
-            <TextView
-                android:id="@+id/tv_cv_date_purchase"
-                style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/dark_grey"
-                app:layout_constraintStart_toStartOf="@+id/tv_cv_id_battery"
-                app:layout_constraintTop_toBottomOf="@+id/tv_cv_end_date"
-                tools:text="28 January 2023, 14:08 WIB" />
-
-            <TextView
-                style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#219317"
-                android:textStyle="italic"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Selected" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

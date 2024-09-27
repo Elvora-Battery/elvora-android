@@ -41,43 +41,66 @@
         android:text="Jl. Setiabudi V" />
 
     <TextView
+        android:id="@+id/tv_station_time"
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:textColor="#219317"
+        app:layout_constraintStart_toStartOf="@+id/tv_station_street"
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_street"
+        android:drawableStart="@drawable/icon_clock"
+        android:text="Operational" />
+
+    <TextView
         android:id="@+id/tv_distance_station"
         style="@style/TextAppearance.Elvora.BodySmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/tv_station_street"
-        app:layout_constraintTop_toBottomOf="@+id/tv_station_street"
+        app:layout_constraintStart_toStartOf="@+id/tv_station_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_station_time"
         tools:text="200 km from your location"
         />
+
+    <TextView
+        android:id="@+id/tv_title_type"
+        style="@style/TextAppearance.Elvora.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Connection Type and Power"
+        app:layout_constraintStart_toStartOf="@+id/iv_station"
+        app:layout_constraintTop_toBottomOf="@+id/tv_distance_station" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#C0FFEC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_station"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_type"
         app:strokeColor="#009267">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="24dp"
             android:paddingVertical="8dp">
 
             <TextView
                 android:id="@+id/tv_typeA"
                 style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="-4dp"
-                android:text="Type A"
+                android:layout_marginHorizontal="8dp"
+                android:text="Unknown Type"
+                android:textAlignment="center"
                 android:textColor="#009267"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/view2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_value_typeA" />
 
@@ -86,56 +109,60 @@
                 style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="4"
                 android:textColor="#009267"
                 app:layout_constraintEnd_toEndOf="@+id/tv_typeA"
                 app:layout_constraintStart_toStartOf="@+id/tv_typeA"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="4" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_typeB"
                 style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Type B"
+                android:layout_marginHorizontal="8dp"
+                android:text="Unknown Type"
+                android:textAlignment="center"
                 android:textColor="#009267"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_typeA" />
+                app:layout_constraintEnd_toStartOf="@id/view3"
+                app:layout_constraintStart_toEndOf="@id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_value_typeB" />
 
             <TextView
                 android:id="@+id/tv_value_typeB"
                 style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="1"
                 android:textColor="#009267"
                 app:layout_constraintEnd_toEndOf="@+id/tv_typeB"
                 app:layout_constraintStart_toStartOf="@+id/tv_typeB"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="1" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_typeC"
                 style="@style/TextAppearance.Elvora.BodySmall"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Type C"
+                android:layout_marginHorizontal="8dp"
+                android:text="Unknown Type"
+                android:textAlignment="center"
                 android:textColor="#009267"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_typeA"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_value_typeA" />
+                app:layout_constraintStart_toEndOf="@+id/view3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_value_typeC" />
 
             <TextView
                 android:id="@+id/tv_value_typeC"
                 style="@style/TextAppearance.Elvora.HeadlineMediumSemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="2"
                 android:textColor="#009267"
                 app:layout_constraintEnd_toEndOf="@+id/tv_typeC"
                 app:layout_constraintStart_toStartOf="@+id/tv_typeC"
-                app:layout_constraintTop_toTopOf="parent"
-                android:text="2" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view2"
@@ -148,6 +175,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
+                android:id="@+id/view3"
                 android:layout_width="2dp"
                 android:layout_height="50dp"
                 android:background="@color/green_container"

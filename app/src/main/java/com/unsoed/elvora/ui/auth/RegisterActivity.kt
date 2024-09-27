@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -107,7 +108,8 @@ class RegisterActivity : AppCompatActivity() {
                     it?.let { data ->
                         when(data) {
                             is ApiResult.Loading -> {
-
+                                binding.btnRegister.visibility = View.GONE
+                                binding.ltLoading.visibility = View.VISIBLE
                             }
 
                             ApiResult.Empty -> {
@@ -115,6 +117,8 @@ class RegisterActivity : AppCompatActivity() {
                             }
 
                             is ApiResult.Error -> {
+                                binding.btnRegister.visibility = View.VISIBLE
+                                binding.ltLoading.visibility = View.GONE
                                 Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
                             }
 

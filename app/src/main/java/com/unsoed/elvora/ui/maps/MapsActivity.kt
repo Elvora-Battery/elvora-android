@@ -1,15 +1,20 @@
 package com.unsoed.elvora.ui.maps
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -45,7 +50,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
+        enableEdgeToEdge()
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.map)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, -20)
+            insets
+        }
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
@@ -61,6 +72,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isIndoorLevelPickerEnabled = true
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
+        mMap.uiSettings.isMapToolbarEnabled = true
+        mMap.uiSettings.isMyLocationButtonEnabled = true
     }
 
     private fun getRecommendation(latitude: Double, longitude: Double) {
@@ -71,11 +84,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             it?.let { response ->
                 when(response) {
                     is ApiResult.Loading -> {
-                        Toast.makeText(this, "Sync data...", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Getting nearby stations...", Toast.LENGTH_LONG).show()
                     }
 
                     is ApiResult.Success -> {
-                        val listStation: List<StationsItem>? = response.data.stations
+                        val listStation: List<StationsItem> = response.data
                         setMarker(listStation)
 
                     }
@@ -90,46 +103,59 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun setMarker(listStation: List<StationsItem>?) {
-        listStation?.let {
-            it.forEach { station ->
-                val latLng = LatLng(station.latitude!!, station.longitude!!)
-                mMap.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title(station.station)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
-                )
-                boundsBuilder.include(latLng)
-            }
-
-            val bounds: LatLngBounds = boundsBuilder.build()
-            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
-                bounds,
-                resources.displayMetrics.widthPixels,
-                resources.displayMetrics.heightPixels,
-                100
-            ))
-
-
-            mMap.setOnInfoWindowClickListener { marker ->
-                val idMarkerClick = marker.id
-                val id = idMarkerClick.substring(1)
-
-                val nameStation = listStation[id.toInt()].station
-                val distanceStation = listStation[id.toInt()].distance
-
-                if (nameStation != null) {
-                    val modalBottomSheet  = MapDialogFragment()
-                    modalBottomSheet.show(supportFragmentManager, MapDialogFragment.TAG)
-                    modalBottomSheet.arguments = Bundle().apply {
-                        putString(MapDialogFragment.NAME_STATION, nameStation)
-                        putDouble(MapDialogFragment.DISTANCE_STATION, distanceStation ?: 0.0)
-                    }
+    private fun setMarker(listStation: List<StationsItem>) {
+        if(listStation.isEmpty()) {
+            Toast.makeText(this, "No stations are available near your location.", Toast.LENGTH_SHORT).show()
+        } else {
+            listStation.let {
+                it.forEach { station ->
+                    val latLng = LatLng(station.latitude!!, station.longitude!!)
+                    mMap.addMarker(
+                        MarkerOptions()
+                            .position(latLng)
+                            .title(station.station)
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                    )
+                    boundsBuilder.include(latLng)
                 }
 
-                Log.d("InfoMarker:", id)
+                val bounds: LatLngBounds = boundsBuilder.build()
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                    bounds,
+                    resources.displayMetrics.widthPixels,
+                    resources.displayMetrics.heightPixels,
+                    100
+                ))
+
+
+                mMap.setOnInfoWindowClickListener { marker ->
+                    val idMarkerClick = marker.id
+                    val id = idMarkerClick.substring(1)
+
+                    val dataStation = listStation[id.toInt()]
+
+                    if (dataStation.station != null) {
+                        val modalBottomSheet  = MapDialogFragment()
+                        modalBottomSheet.show(supportFragmentManager, MapDialogFragment.TAG)
+                        modalBottomSheet.arguments = Bundle().apply {
+                            putParcelable(MapDialogFragment.EXTRA_DATA, dataStation)
+                        }
+                    }
+
+                    Log.d("InfoMarker:", id)
+                }
             }
+        }
+    }
+
+    fun navigateToStation(latitude: Double, longitude: Double) {
+        val uri = "google.navigation:q=$latitude,$longitude"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
+        intent.setPackage("com.google.android.apps.maps")
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Google Maps not installed", Toast.LENGTH_SHORT).show()
         }
     }
 

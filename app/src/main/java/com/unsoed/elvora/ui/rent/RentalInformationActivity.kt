@@ -2,17 +2,18 @@ package com.unsoed.elvora.ui.rent
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.response.getSubs.ActiveSubscription
+import com.unsoed.elvora.data.response.active.DataItem
 import com.unsoed.elvora.databinding.ActivityRentalInformationBinding
 import com.unsoed.elvora.ui.subs.ChangeNameDialogFragment
 
-class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.OnNameChangeListener {
+class RentalInformationActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityRentalInformationBinding
 
@@ -28,7 +29,7 @@ class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.
         }
 
         val rentalBattery = if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra(EXTRA_DATA, ActiveSubscription::class.java)
+            intent.getParcelableExtra(EXTRA_DATA, DataItem::class.java)
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_DATA)
@@ -44,9 +45,9 @@ class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.
                 tvRentalEndsDate.text = it.expirationDate.toString()
             }
         }
-
         binding.btnArrowBack.setOnClickListener {
             OnBackPressedDispatcher().onBackPressed()
+            finish()
         }
 
         binding.tvChangeName.setOnClickListener {
@@ -56,14 +57,18 @@ class RentalInformationActivity : AppCompatActivity(), ChangeNameDialogFragment.
                 putInt(ChangeNameDialogFragment.BATTERY_ID, rentalBattery?.id ?: 0)
                 putString(ChangeNameDialogFragment.BATTERY_NAME, rentalBattery?.batteryName)
             }
+
+            modalBottomSheet.changeBatteryName(object: ChangeNameDialogFragment.OnNameChangeListener {
+                override fun onNameChanged(newName: String) {
+                    binding.tvRentalBatteryName.text = newName
+                    Log.d("RentalInformation", "Nama Baru : $newName")
+                }
+
+            })
         }
     }
 
     companion object {
         const val EXTRA_DATA = "extra_data"
-    }
-
-    override fun onNameChanged(newName: String) {
-        binding.tvRentalBatteryName.text = newName
     }
 }

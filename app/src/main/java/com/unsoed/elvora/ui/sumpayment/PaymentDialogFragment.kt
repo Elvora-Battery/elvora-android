@@ -68,7 +68,8 @@ class PaymentDialogFragment : BottomSheetDialogFragment() {
                 it?.let { data ->
                     when(data) {
                         is ApiResult.Loading -> {
-
+                            binding.ltLoading.visibility = View.VISIBLE
+                            binding.btnConfirmPayment.visibility = View.GONE
                         }
 
                         ApiResult.Empty -> {
@@ -76,6 +77,8 @@ class PaymentDialogFragment : BottomSheetDialogFragment() {
                         }
 
                         is ApiResult.Error -> {
+                            binding.ltLoading.visibility = View.GONE
+                            binding.btnConfirmPayment.visibility = View.VISIBLE
                             Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
                         }
 

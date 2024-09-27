@@ -3,6 +3,7 @@ package com.unsoed.elvora.ui.profile
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -76,18 +77,21 @@ class ProfileActivity : AppCompatActivity() {
             it?.let { data ->
                 userModel = data
             }
+            Log.d("ProfileActivity", it.toString())
         }
 
         homeViewModel.getUserShipping().observe(this) {
             it?.let { data ->
                 userShippingModel = data
             }
+            Log.d("ProfileActivity", it.toString())
         }
 
         homeViewModel.getUserVerify().observe(this) {
             it?.let { data ->
                 userVerify = data
             }
+            Log.d("ProfileActivity", it.toString())
         }
 
         val dataProfile = if (Build.VERSION.SDK_INT >= 33) {
@@ -106,7 +110,6 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.shapeableImageView.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.avatar3))
-        binding.tvTierMember.text = "Premium Member"
     }
 
     companion object {

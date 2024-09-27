@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -98,7 +99,8 @@ class CardVerificationActivity : AppCompatActivity() {
             it?.let { response ->
                 when (response) {
                     is ApiResult.Loading -> {
-
+                        binding.ltLoading.visibility = View.VISIBLE
+                        binding.btnConfirmCard.visibility = View.INVISIBLE
                     }
 
                     is ApiResult.Success -> {
@@ -111,15 +113,13 @@ class CardVerificationActivity : AppCompatActivity() {
                         intent.putExtra(IdentifyVerificationActivity.KTP_NUMBER, nik)
                         intent.putExtra(IdentifyVerificationActivity.KTP_DATE, date)
                         startActivity(intent)
-
-                        Log.d(TAG, nik.toString())
-                        Log.d(TAG, name.toString())
-                        Log.d(TAG, date.toString())
                     }
 
                     is ApiResult.Error -> {
                         Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
                         Log.d(TAG, response.message)
+                        binding.ltLoading.visibility = View.GONE
+                        binding.btnConfirmCard.visibility = View.VISIBLE
                     }
 
                     ApiResult.Empty -> {

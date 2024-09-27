@@ -46,7 +46,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_sd_input_name"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -76,7 +77,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_sd_input_number"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -106,7 +108,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_sd_input_street"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -136,7 +139,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_sd_input_village"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -166,7 +170,8 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_sd_input_address"
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="18dp"
@@ -195,4 +200,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lt_loading"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 </androidx.constraintlayout.widget.ConstraintLayout>

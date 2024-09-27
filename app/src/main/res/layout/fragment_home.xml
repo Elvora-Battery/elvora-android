@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_background"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,12 +92,23 @@
 
                 <TextView
                     android:id="@+id/tv_empty_subs"
-                    style="@style/TextAppearance.Elvora.HeadlineSmallSemiBold"
+                    style="@style/TextAppearance.Elvora.HeadlineSmall"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="gone"
                     android:text="No Data Available"
                     android:gravity="center"/>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lt_loading"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    app:lottie_rawRes="@raw/loading"
+                    app:lottie_loop="true"
+                    app:lottie_autoPlay="true"
+                    android:visibility="gone"
+                    />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout

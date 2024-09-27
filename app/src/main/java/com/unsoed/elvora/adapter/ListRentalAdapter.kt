@@ -4,17 +4,18 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
+import com.unsoed.elvora.data.response.active.DataItem
 import com.unsoed.elvora.databinding.CardItemRentalBinding
+import com.unsoed.elvora.helper.formatDate
 import com.unsoed.elvora.ui.rent.RentalInformationActivity
 
-class ListRentalAdapter(private val listSubs: List<AllSubsriptionsItem>): RecyclerView.Adapter<ListRentalAdapter.ViewHolder>() {
+class ListRentalAdapter(private val listSubs: List<DataItem>): RecyclerView.Adapter<ListRentalAdapter.ViewHolder>() {
     class ViewHolder(val binding: CardItemRentalBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: AllSubsriptionsItem) {
-            binding.tvCvDatePurchase.text = data.createdAt.toString()
+        fun bind(data: DataItem) {
+            binding.tvCvDatePurchase.text = "Purchased on ${formatDate(data.createdAt.toString())}"
             binding.tvCvIdBattery.text = "EV${data.id}"
-            binding.tvCvEndDate.text = data.expirationDate.toString()
-            binding.tvCvNameMotor.text = "Default Motorcycle EV${data.id}"
+            binding.tvCvEndDate.text = "Ends on ${formatDate(data.expirationDate.toString())}"
+            binding.tvCvNameMotor.text = data.batteryName
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, RentalInformationActivity::class.java)

@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.lottie)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.jetbrains.kotlinx.coroutines.android)

@@ -34,7 +34,8 @@
         android:text="Full Name" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:id="@+id/et_input_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +72,8 @@
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:id="@+id/et_input_register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -147,6 +149,15 @@
         android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
         app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:text="Register"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lt_loading"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:lottie_autoPlay="true"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
 
     <TextView
         style="@style/TextAppearance.Elvora.BodyMedium"

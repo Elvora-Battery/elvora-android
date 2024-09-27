@@ -1,20 +1,29 @@
 package com.unsoed.elvora.ui.rent
 
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.response.getSubs.ActiveSubscription
+import com.unsoed.elvora.adapter.ListRentalAdapter
+import com.unsoed.elvora.data.ApiResult
+import com.unsoed.elvora.data.response.active.DataItem
 import com.unsoed.elvora.databinding.ActivityRentalBinding
-import com.unsoed.elvora.helper.formatDate
+import com.unsoed.elvora.helper.SubsModelFactory
+import com.unsoed.elvora.ui.subs.SubsViewModel
 
 class RentalActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRentalBinding
+    private val subsViewModel: SubsViewModel by viewModels {
+        SubsModelFactory.getInstance(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,30 +36,50 @@ class RentalActivity : AppCompatActivity() {
             insets
         }
 
-        val dataRental = if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra(LIST_RENTAL, ActiveSubscription::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent?.getParcelableExtra(LIST_RENTAL)
-        }
+        setupRecyclerView()
+    }
 
-        dataRental?.let {
-            val purchaseDate = formatDate(it.createdAt!!)
-            val createdDate = formatDate(it.createdAt!!)
-            binding.tvCvDatePurchase.text = "Purchase date $purchaseDate"
-            binding.tvCvIdBattery.text = "EV${it.id}"
-            binding.tvCvEndDate.text = "Purchase date $createdDate"
-            binding.tvCvNameMotor.text = it.batteryName
+    private fun setupRecyclerView() {
+        subsViewModel.getActiveSubs().observe(this) {
+            it?.let { response ->
+                when (response) {
+                    is ApiResult.Loading -> {
 
-            binding.cvRental.setOnClickListener {
-                val intent = Intent(this@RentalActivity, RentalInformationActivity::class.java)
-                intent.putExtra(RentalInformationActivity.EXTRA_DATA, dataRental)
-                startActivity(intent)
+                    }
+
+                    is ApiResult.Success -> {
+                        val list = response.data
+                        setupData(response.data)
+                    }
+
+                    is ApiResult.Error -> {
+                        Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, response.message)
+                    }
+
+                    ApiResult.Empty -> {
+
+                    }
+                }
             }
         }
     }
 
+    private fun setupData(data: List<DataItem>) {
+        if(data.isNotEmpty()) {
+            binding.rvListActiveSubs.layoutManager = LinearLayoutManager(this)
+            binding.rvListActiveSubs.setHasFixedSize(true)
+            binding.rvListActiveSubs.adapter = ListRentalAdapter(data)
+            binding.ltLoading.visibility = View.GONE
+        } else {
+            binding.rvListActiveSubs.visibility = View.GONE
+            binding.ltLoading.visibility = View.VISIBLE
+        }
+    }
+
+
     companion object {
+        private const val TAG = "RentalActivity"
         const val LIST_RENTAL = "list_rental"
     }
 }
