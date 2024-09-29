@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.subs
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,25 +80,31 @@ class SubsFragment : Fragment() {
 
                     is ApiResult.Success -> {
                         binding.ltLoading.visibility = View.GONE
-                        listSubs = data.data.allSubsriptions
+                        listSubs = data.data.allSubscriptions
                         activeSubs = data.data.activeSubscription
                         listSubs?.let { subs ->
                             setupRecyclerView(subs)
                         }
+                        Log.d("SubsFragment", data.data.activeSubscription.toString())
 
-                        binding.cvTotalSubs.tvNumberSumary.text = data.data.allSubsriptions?.size.toString()
-
-                        if(activeSubs != null) {
+                        if(activeSubs?.id != null) {
                             setupActiveSubs(activeSubs!!)
                             binding.tvEmptySubs.visibility = View.GONE
                             binding.btnSubsNow.visibility = View.VISIBLE
                             binding.btnArrowNext.visibility = View.VISIBLE
                             binding.divider.visibility = View.VISIBLE
+                            binding.cvTotalSubs.tvNumberSumary.text = data.data.allSubscriptions?.size.toString()
                         } else {
+                            Log.d("SubsFragment", "Data Subs Kosong")
                             binding.tvEmptySubs.visibility = View.VISIBLE
+                            binding.ltEmpty.visibility = View.VISIBLE
+                            binding.btnSeeAll.visibility = View.GONE
                             binding.btnSubsNow.visibility = View.GONE
                             binding.btnArrowNext.visibility = View.GONE
                             binding.divider.visibility = View.GONE
+                            binding.tvDay.visibility = View.GONE
+                            binding.view.visibility = View.GONE
+                            binding.cvTotalSubs.tvNumberSumary.text = "0"
                         }
                     }
                 }
@@ -150,12 +157,16 @@ class SubsFragment : Fragment() {
 
     private fun setupRecyclerView(listSubs: List<AllSubsriptionsItem>) {
         if(listSubs.isNotEmpty()) {
+            Log.d("SubsFragment", "List Ada")
             binding.rvSubs.layoutManager = LinearLayoutManager(requireContext())
             binding.rvSubs.setHasFixedSize(true)
             binding.rvSubs.adapter = SubsAdapter(listSubs)
             binding.tvEmptyList.visibility = View.GONE
+            binding.ltEmptyList.visibility = View.GONE
         } else {
+            Log.d("SubsFragment", "List Kosong")
             binding.rvSubs.visibility = View.GONE
+            binding.ltEmptyList.visibility = View.VISIBLE
             binding.tvEmptyList.visibility = View.VISIBLE
         }
     }

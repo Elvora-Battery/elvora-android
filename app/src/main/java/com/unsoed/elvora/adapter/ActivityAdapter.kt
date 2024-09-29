@@ -1,25 +1,28 @@
 package com.unsoed.elvora.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.unsoed.elvora.data.Activity
+import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.databinding.ItemActivityRentalBinding
+import com.unsoed.elvora.helper.formatDate
+import com.unsoed.elvora.ui.detail.DetailActivity
 
-class ActivityAdapter(private val listActivity: List<Activity>): RecyclerView.Adapter<ActivityAdapter.ViewHolder>() {
-
-    private lateinit var onItemClicked: OnItemClick
-
-    fun onItemClickCallback(onSelectedItem: OnItemClick) {
-        onItemClicked = onSelectedItem
-    }
+class ActivityAdapter(private val listActivity: List<AllSubsriptionsItem>): RecyclerView.Adapter<ActivityAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemActivityRentalBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(data: Activity) {
+        fun bind(data: AllSubsriptionsItem) {
             binding.tvActStatus.text = data.status
-            binding.tvActBattery.text = data.battery
-            binding.tvActDate.text = data.date
-            binding.tvActMotor.text = data.id
+            binding.tvActBattery.text = if(data.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
+            binding.tvActDate.text = "Transaction on ${formatDate(data.createdAt.toString())}"
+            binding.tvActMotor.text = "ID Battery:EV${data.rentTypeId}"
+
+            itemView.setOnClickListener {
+                val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_ID, data.id)
+                itemView.context.startActivity(intent)
+            }
         }
     }
 
@@ -37,7 +40,4 @@ class ActivityAdapter(private val listActivity: List<Activity>): RecyclerView.Ad
         holder.bind(data)
     }
 
-    interface OnItemClick {
-        fun onClick(data: Activity)
-    }
 }

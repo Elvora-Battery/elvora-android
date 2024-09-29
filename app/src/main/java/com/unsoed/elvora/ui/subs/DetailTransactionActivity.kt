@@ -29,6 +29,7 @@ class DetailTransactionActivity : AppCompatActivity() {
         SubsModelFactory.getInstance(this)
     }
     private var tokenBattery = ""
+    private var tokenVerify = false
     private var tokenBatteryExpired = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +50,8 @@ class DetailTransactionActivity : AppCompatActivity() {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(EXTRA_DATA)
         }
-        initView(detailTransaction?.id)
 
+        initView(detailTransaction?.id)
         if(detailTransaction != null) {
             binding.btnCopyText.setOnClickListener {
                 val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -70,35 +71,6 @@ class DetailTransactionActivity : AppCompatActivity() {
                 tvDetailPaymentMethod.text = detailTransaction.payment
                 tvDtTotal.text = "Rp${price}"
             }
-        } else {
-            val batteryType = intent.getStringExtra(BATTERY_TYPE)
-            val idBatteryType = intent.getStringExtra(ID_BATTERY_TYPE)
-            val statusTransaction = intent.getStringExtra(STATUS_TRANSACTION)
-            val idTransaction = intent.getStringExtra(ID_TRANSACTION)
-            val dateTransaction = intent.getStringExtra(DATE_TRANSACTION)
-            val paymentTransaction = intent.getStringExtra(PAYMENT_TRANSACTION)
-            val totalPayment = intent.getStringExtra(TOTAL_PRICE)
-            val token = intent.getStringExtra(TOKEN)
-
-            binding.btnCopyText.setOnClickListener {
-                val clipboard = this.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("Copied Text", token)
-                clipboard.setPrimaryClip(clip)
-
-                Toast.makeText(this, "Text copied to clipboard", Toast.LENGTH_SHORT).show()
-            }
-
-            binding.apply {
-                tvDtTypeBattery.text = batteryType
-                tvDtId.text = "ID Battery : EV${idBatteryType}"
-                tvDetailStatus.text = statusTransaction
-                tvDetailIdBattery.text = idTransaction
-                tvDetailOrderDate.text = dateTransaction
-                tvDetailPaymentMethod.text = paymentTransaction
-                tvDtTotal.text = "Rp$totalPayment.000"
-                tvDtToken.text = token
-                binding.tvDtExpired.text = tokenBatteryExpired
-            }
         }
 
         binding.btnActivateToken.setOnClickListener {
@@ -115,6 +87,8 @@ class DetailTransactionActivity : AppCompatActivity() {
                         is ApiResult.Loading -> {}
 
                         is ApiResult.Success -> {
+                            tokenVerify = response.data.tokenVerify!!
+                            binding.btnActivateToken.isEnabled = !tokenVerify
                             tokenBattery = response.data.transaction?.token?.token.toString()
                             tokenBatteryExpired = formatDate(response.data.transaction?.expirationDate.toString())
                             binding.tvDtToken.text = response.data.transaction?.token?.token.toString()
@@ -135,15 +109,6 @@ class DetailTransactionActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "DetailTransactionActivi"
-        const val BATTERY_TYPE = "battery_type"
-        const val ID_BATTERY_TYPE = "id_battery_type"
-        const val STATUS_TRANSACTION = "status_transaction"
-        const val ID_TRANSACTION = "id_battery_type"
-        const val DATE_TRANSACTION = "date_transaction"
-        const val PAYMENT_TRANSACTION = "payment_transaction"
-        const val TOTAL_PRICE = "total_price"
-        const val TOKEN = "token"
-
         const val EXTRA_DATA = "extra_data"
     }
 }

@@ -7,6 +7,7 @@ import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.data.UserShippingModel
 import com.unsoed.elvora.data.repository.RentRepository
 import com.unsoed.elvora.data.response.PaidTransactionResponse
+import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.data.response.new.Data
 import com.unsoed.elvora.data.response.verify.KtpData
 import okhttp3.MultipartBody
@@ -46,5 +47,8 @@ class RentViewModel(private val rentRepository: RentRepository): ViewModel() {
 
     fun publishToken(token: String): LiveData<ApiResult<String>> {
         return rentRepository.publishToken(token)
+    }
+    fun getAllTransaction(): LiveData<ApiResult<List<AllSubsriptionsItem>>> {
+        return rentRepository.getAllTransaction()
     }
 }

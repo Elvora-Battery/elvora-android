@@ -107,8 +107,8 @@ data class RentType(
 
 data class Data(
 
-	@field:SerializedName("allSubsriptions")
-	val allSubsriptions: List<AllSubsriptionsItem>? = null,
+	@field:SerializedName("allSubscriptions")
+	val allSubscriptions: List<AllSubsriptionsItem>? = null,
 
 	@field:SerializedName("activeSubscription")
 	val activeSubscription: ActiveSubscription? = null

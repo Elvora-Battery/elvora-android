@@ -3,11 +3,20 @@ package com.unsoed.elvora.ui.subs
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.unsoed.elvora.data.ApiResult
+import com.unsoed.elvora.data.UserModel
+import com.unsoed.elvora.data.UserShippingModel
 import com.unsoed.elvora.data.repository.SubsRepository
 import com.unsoed.elvora.data.response.active.DataItem
 import com.unsoed.elvora.data.response.getSubs.Data
 
 class SubsViewModel(private val subsRepository: SubsRepository): ViewModel() {
+    fun getUserSession(): LiveData<UserModel> {
+        return subsRepository.getUserSession()
+    }
+
+    fun getUserShipping(): LiveData<UserShippingModel> {
+        return subsRepository.getUserShipping()
+    }
     fun getAllSubs(): LiveData<ApiResult<Data>> {
         return subsRepository.getAllSubs()
     }

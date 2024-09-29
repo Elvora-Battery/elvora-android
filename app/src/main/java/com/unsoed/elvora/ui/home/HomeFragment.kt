@@ -2,6 +2,7 @@ package com.unsoed.elvora.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
                     binding.tvMemberLocation.text = "Location is not set"
                 } else {
                     binding.tvMemberLocation.text =
-                        "${data.street}, ${data.village}, ${data.address}"
+                        "${data.street}, ${data.village}"
                 }
             }
         }
@@ -133,7 +134,6 @@ class HomeFragment : Fragment() {
 
         binding.cardConsumption.apply {
             tvTitleSumary.text = "Usage Rate"
-            tvSatuanSumary.text = "KwH"
             cvSummary.background = shapeDrawable
         }
     }
@@ -185,12 +185,14 @@ class HomeFragment : Fragment() {
                     }
 
                     is ApiResult.Success -> {
-                        Toast.makeText(requireContext(), response.data.message, Toast.LENGTH_SHORT).show()
-
-                        if (response.data.data?.transaction != null) {
+                        Log.d("HomeFragment", "Data : ${response.data}")
+                        Log.d("HomeFragment", response.data.transaction.toString())
+                        Log.d("HomeFragment", response.data.battery.toString())
+                        if (response.data.transaction?.id != null) {
                             binding.ltLoading.visibility = View.GONE
                             binding.tvEmptySubs.visibility = View.GONE
-                            transactionData = response.data.data.transaction
+                            binding.ltEmpty.visibility = View.GONE
+                            transactionData = response.data.transaction
 
                             transactionData?.let { transaction ->
                                 binding.apply {
@@ -200,12 +202,14 @@ class HomeFragment : Fragment() {
                                 }
                             }
                         } else {
-                            binding.ltLoading.visibility = View.VISIBLE
+                            binding.ltLoading.visibility = View.GONE
                             binding.tvEmptySubs.visibility = View.VISIBLE
+                            binding.ltEmpty.visibility = View.VISIBLE
+                            binding.cvLayoutDashboard.visibility = View.INVISIBLE
                         }
 
-                        if(response.data.data?.battery != null) {
-                            batteryData = response.data.data.battery
+                        if(response.data.battery?.id != null) {
+                            batteryData = response.data.battery
                             batteryData?.let { battery ->
                                 binding.apply {
                                     cardTempMonitoring.tvCardPercentage.text = "${battery.suhu ?: "-"}%"

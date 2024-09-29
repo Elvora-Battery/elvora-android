@@ -18,9 +18,8 @@ import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.Payment
 import com.unsoed.elvora.databinding.FragmentPaymentDialogBinding
 import com.unsoed.elvora.helper.RentModelFactory
+import com.unsoed.elvora.ui.detail.DetailActivity
 import com.unsoed.elvora.ui.rent.RentViewModel
-import com.unsoed.elvora.ui.subs.DetailTransactionActivity
-import java.time.LocalDateTime
 
 class PaymentDialogFragment : BottomSheetDialogFragment() {
 
@@ -50,9 +49,6 @@ class PaymentDialogFragment : BottomSheetDialogFragment() {
         }
 
         val idTransaction = arguments?.getInt(ID_TRANSACTION, 0)
-        val typeBattery = arguments?.getString(TYPE_BATTERY)
-        val idBattery = arguments?.getString(ID_BATTERY)
-        val total = arguments?.getString(TOTAL_PRICE)
 
         dataPayment?.let {
             binding.apply {
@@ -85,17 +81,8 @@ class PaymentDialogFragment : BottomSheetDialogFragment() {
                         is ApiResult.Success -> {
                             Toast.makeText(requireContext(), "Confirmed Payment", Toast.LENGTH_SHORT).show()
                             Log.d(TAG, data.data.token.toString())
-                            val intent = Intent(requireContext(), DetailTransactionActivity::class.java)
-                            intent.putExtra(DetailTransactionActivity.BATTERY_TYPE, typeBattery)
-                            intent.putExtra(DetailTransactionActivity.ID_BATTERY_TYPE, idBattery)
-                            intent.putExtra(DetailTransactionActivity.STATUS_TRANSACTION, "Paid Off")
-                            intent.putExtra(DetailTransactionActivity.ID_TRANSACTION, idTransaction.toString())
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                intent.putExtra(DetailTransactionActivity.DATE_TRANSACTION, LocalDateTime.now().toString())
-                            }
-                            intent.putExtra(DetailTransactionActivity.PAYMENT_TRANSACTION, dataPayment?.name)
-                            intent.putExtra(DetailTransactionActivity.TOTAL_PRICE, total)
-                            intent.putExtra(DetailTransactionActivity.TOKEN, data.data.token)
+                            val intent = Intent(requireContext(), DetailActivity::class.java)
+                            intent.putExtra(DetailActivity.EXTRA_ID, idTransaction)
                             startActivity(intent)
                         }
                     }

@@ -1,192 +1,326 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_color"
     tools:context=".ui.detail.DetailActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/md_theme_background"
+        >
 
-        <ImageView
-            android:id="@+id/btn_arrow_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_arrow_back" />
-
-        <TextView
-            style="@style/TextAppearance.Elvora.TitleMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Activity Details"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </com.google.android.material.appbar.MaterialToolbar>
-
-    <FrameLayout
-        android:id="@+id/frameLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialToolbar">
-
-        <View
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/gradient_color" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/btn_arrow_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_arrow_back" />
+
+            <TextView
+                style="@style/TextAppearance.Elvora.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Activity Details"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialToolbar">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:background="@drawable/gradient_color" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="18dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/white"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp"
+                app:strokeWidth="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:id="@+id/tv_id_transaction"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@color/dark_grey"
+                        tools:text="ID EV21243773" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_battery_name"
+                        style="@style/TextAppearance.Elvora.TitleLarge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        tools:text="72V 20Ah Battery" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_status"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="#0282CC"
+                        tools:text="Delivery" />
+
+                    <View
+                        android:id="@+id/divider2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginVertical="14dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="#000000"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/title_id"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ID Battery"
+                        android:textColor="#717171" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_id_battery"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="EV20004" />
+
+                    <TextView
+                        android:id="@+id/title_order"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order Date"
+                        android:textColor="#717171" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_order_date"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="28 January 2023, 14:08 WIB" />
+
+                    <TextView
+                        android:id="@+id/title_payment"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Payment Method"
+                        android:textColor="#717171" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_payment_method"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="BCA" />
+
+                    <TextView
+                        android:id="@+id/title_name"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textColor="#717171" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_name"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Muhammad Althaaf Abqary" />
+
+                    <TextView
+                        android:id="@+id/title_address"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Address"
+                        android:textColor="#717171" />
+
+                    <TextView
+                        android:id="@+id/tv_detail_address"
+                        style="@style/TextAppearance.Elvora.BodyMedium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Desa Purwasaba RT05/RW01, Kec. Mandiraja, Kab. Banjarnegara, Jawa Tengah 53473" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <include
+            android:id="@+id/cv_order"
+            layout="@layout/card_item_order_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginHorizontal="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="18dp"
             android:backgroundTint="@color/white"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cv_order"
             app:strokeWidth="0dp">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/tv_id_transaction"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
+                    android:id="@+id/tv_title_transactions"
+                    style="@style/TextAppearance.Elvora.TitleSmallSemiBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="@color/dark_grey"
-                    tools:text="ID EV21243773" />
-
-                <TextView
-                    android:id="@+id/tv_detail_battery_name"
-                    style="@style/TextAppearance.Elvora.TitleLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="21dp"
+                    android:layout_marginTop="12dp"
+                    android:text="Token Details"
                     android:textStyle="bold"
-                    tools:text="72V 20Ah Battery" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_detail_status"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textColor="#0282CC"
-                    tools:text="Delivery" />
 
                 <View
-                    android:id="@+id/divider2"
+                    android:id="@+id/divider3"
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginVertical="14dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
                     android:background="?android:attr/listDivider"
                     android:backgroundTint="#000000"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_transactions" />
 
                 <TextView
-                    android:id="@+id/title_id"
+                    android:id="@+id/tv_title_expired"
                     style="@style/TextAppearance.Elvora.BodyMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ID Battery"
-                    android:textColor="#717171" />
+                    android:layout_marginTop="10dp"
+                    android:text="Expired Date"
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintStart_toStartOf="@+id/divider3"
+                    app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
                 <TextView
-                    android:id="@+id/tv_detail_id_battery"
+                    android:id="@+id/tv_dt_expired"
                     style="@style/TextAppearance.Elvora.BodyMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="EV20004" />
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintStart_toStartOf="@+id/divider3"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_expired"
+                    tools:text="18 September 2023, 14:08 WIB" />
 
                 <TextView
-                    android:id="@+id/title_order"
+                    android:id="@+id/tv_title_token"
                     style="@style/TextAppearance.Elvora.BodyMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Order Date"
-                    android:textColor="#717171" />
+                    android:layout_marginTop="8dp"
+                    android:text="Token Number"
+                    android:textColor="@color/dark_grey"
+                    app:layout_constraintStart_toStartOf="@+id/tv_dt_expired"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_dt_expired" />
 
                 <TextView
-                    android:id="@+id/tv_detail_order_date"
+                    android:id="@+id/tv_dt_token"
                     style="@style/TextAppearance.Elvora.BodyMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="28 January 2023, 14:08 WIB" />
+                    android:layout_marginBottom="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_title_token"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title_token"
+                    tools:text="172638198219089121" />
 
-                <TextView
-                    android:id="@+id/title_payment"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
+                <ImageView
+                    android:id="@+id/btn_copy_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Payment Method"
-                    android:textColor="#717171" />
-
-                <TextView
-                    android:id="@+id/tv_detail_payment_method"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="BCA" />
-
-                <TextView
-                    android:id="@+id/title_name"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name"
-                    android:textColor="#717171" />
-
-                <TextView
-                    android:id="@+id/tv_detail_name"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Muhammad Althaaf Abqary" />
-
-                <TextView
-                    android:id="@+id/title_address"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Address"
-                    android:textColor="#717171" />
-
-                <TextView
-                    android:id="@+id/tv_detail_address"
-                    style="@style/TextAppearance.Elvora.BodyMedium"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="Desa Purwasaba RT05/RW01, Kec. Mandiraja, Kab. Banjarnegara, Jawa Tengah 53473" />
-
-            </LinearLayout>
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/icon_copy"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_dt_token"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_title_token" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
-    </FrameLayout>
 
-    <include
-        android:id="@+id/cv_order"
-        layout="@layout/card_item_order_details"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-        android:layout_marginHorizontal="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/frameLayout3" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_activate_detail"
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:layout_marginHorizontal="18dp"
+            android:layout_marginVertical="32dp"
+            android:text="Activate Now"
+            android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView4"
+            app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lt_loading"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

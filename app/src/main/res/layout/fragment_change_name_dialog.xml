@@ -12,12 +12,13 @@
         android:textColor="@color/md_theme_scrim"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="18dp"
         android:layout_marginHorizontal="18dp"
         android:text="Battery Name" />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.Elvora.TextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
         android:id="@+id/et_input_change_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +31,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="text"
+            android:fontFamily="@font/poppins_regular"
             />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -43,6 +45,6 @@
         android:layout_marginHorizontal="18dp"
         android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
         app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
-        android:text="CHange"/>
+        android:text="Change Battery Name"/>
 
 </LinearLayout>

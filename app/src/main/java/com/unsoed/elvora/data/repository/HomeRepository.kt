@@ -13,7 +13,7 @@ import com.unsoed.elvora.data.UserVerify
 import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
-import com.unsoed.elvora.data.response.home.DashboardResponse
+import com.unsoed.elvora.data.response.home.Data
 import com.unsoed.elvora.data.response.map.StationsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -116,7 +116,7 @@ class HomeRepository(
         }
     }
 
-    fun getDashboardData(): LiveData<ApiResult<DashboardResponse>> {
+    fun getDashboardData(): LiveData<ApiResult<Data>> {
         return liveData {
             val tokenUser = withContext(Dispatchers.IO) {
                 dataStore.getUser().firstOrNull()
@@ -128,7 +128,9 @@ class HomeRepository(
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        emit(ApiResult.Success(responseBody))
+                        Log.d(TAG, "Response : ${response.toString()}")
+                        Log.d(TAG,"Response Body : ${responseBody.data.toString()}")
+                        emit(ApiResult.Success(responseBody.data!!))
                     }
                 } else {
                     Log.e(TAG, "Error getDashboardData")

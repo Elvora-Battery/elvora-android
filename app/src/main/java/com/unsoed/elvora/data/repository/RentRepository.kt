@@ -13,6 +13,7 @@ import com.unsoed.elvora.data.local.UserPreferences
 import com.unsoed.elvora.data.network.ApiService
 import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.PaidTransactionResponse
+import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.data.response.new.Data
 import com.unsoed.elvora.data.response.verify.KtpData
 import kotlinx.coroutines.Dispatchers
@@ -197,6 +198,35 @@ class RentRepository(private val apiService: ApiService, private val dataStore: 
                     val errorResponse = response.errorBody()?.string()
                     val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
                     emit(ApiResult.Error(errorMessage.message ?: "Unknown Error in Paid Transaction"))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
+    fun getAllTransaction(): LiveData<ApiResult<List<AllSubsriptionsItem>>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.getAllSubscription(
+                    token = "Bearer ${tokenUser?.token}",
+                )
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if(responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data?.allSubscriptions!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error getAllTransaction")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(ApiResult.Error(errorMessage.message ?: "Unknown Error getAllTransaction"))
                 }
             } catch (e: Exception) {
                 emit(ApiResult.Error(e.message ?: "Unknown Error"))

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.detail.ActivateDialogFragment">
+
+    <TextView
+        style="@style/TextAppearance.Elvora.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="18dp"
+        android:text="Has the battery you ordered arrived to you?"/>
+
+    <Button
+        android:id="@+id/btn_has_arrived"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="18dp"
+        android:text="Yes, my order has arrived"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent" />
+
+
+    <TextView
+        style="@style/TextAppearance.Elvora.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="8dp"
+        android:text="Or"/>
+
+    <Button
+        android:id="@+id/btn_no_arrived"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginBottom="18dp"
+        android:text="Not arrived yet"/>
+
+</LinearLayout>

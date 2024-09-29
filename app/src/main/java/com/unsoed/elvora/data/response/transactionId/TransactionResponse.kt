@@ -43,7 +43,10 @@ data class Data(
 	val rentType: RentType? = null,
 
 	@field:SerializedName("transaction")
-	val transaction: Transaction? = null
+	val transaction: Transaction? = null,
+
+	@field:SerializedName("token_verify")
+	val tokenVerify: Boolean? = null
 )
 
 data class Transaction(

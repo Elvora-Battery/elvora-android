@@ -6,15 +6,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unsoed.elvora.adapter.ActivityAdapter
 import com.unsoed.elvora.adapter.RentAdapter
+import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.Rental
 import com.unsoed.elvora.data.UserModel
 import com.unsoed.elvora.databinding.FragmentRentalBinding
-import com.unsoed.elvora.dummy.activityDataList
 import com.unsoed.elvora.dummy.rentalDataList
 import com.unsoed.elvora.helper.RentModelFactory
 import com.unsoed.elvora.ui.sumpayment.SummaryPaymentActivity
@@ -51,6 +52,8 @@ class RentalFragment : Fragment() {
                 userModel = it
             }
         }
+
+
         val index = arguments?.getInt(TAB_INDEX, 0)
 
         if(index == 1) {
@@ -94,10 +97,42 @@ class RentalFragment : Fragment() {
                 }
             })
         } else {
-            val activityAdapter = ActivityAdapter(activityDataList)
-            binding.rvRental.adapter = activityAdapter
-            binding.rvRental.layoutManager = LinearLayoutManager(requireContext())
-            binding.rvRental.hasFixedSize()
+            rentViewModel.getAllTransaction().observe(viewLifecycleOwner) {
+                it?.let { response ->
+                    when (response) {
+                        is ApiResult.Loading -> {
+                            binding.ltLoading.visibility = View.VISIBLE
+                        }
+
+                        ApiResult.Empty -> {
+
+                        }
+
+                        is ApiResult.Error -> {
+                            Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                            binding.ltLoading.visibility = View.GONE
+                        }
+
+                        is ApiResult.Success -> {
+                            binding.ltLoading.visibility = View.GONE
+                            val activityData = response.data
+                            if(activityData.isNotEmpty()) {
+                                val activityAdapter = ActivityAdapter(activityData)
+                                binding.rvRental.adapter = activityAdapter
+                                binding.rvRental.layoutManager = LinearLayoutManager(requireContext())
+                                binding.rvRental.hasFixedSize()
+                                binding.tvEmptyList.visibility = View.GONE
+                                binding.ltEmptyList.visibility = View.GONE
+                            } else {
+                                binding.ltEmptyList.visibility = View.VISIBLE
+                                binding.rvRental.visibility = View.GONE
+                                binding.tvEmptyList.visibility = View.VISIBLE
+                            }
+
+                        }
+                    }
+                }
+            }
         }
     }
 
