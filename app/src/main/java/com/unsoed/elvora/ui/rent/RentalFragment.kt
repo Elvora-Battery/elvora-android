@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.unsoed.elvora.adapter.ActivityAdapter
+import com.unsoed.elvora.adapter.ButtonFilterAdapter
 import com.unsoed.elvora.adapter.RentAdapter
 import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.Rental
@@ -29,6 +30,7 @@ class RentalFragment : Fragment() {
     }
     private var userModel: UserModel? = null
     private var isPremium = false
+    private var listFilter: ArrayList<String> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,50 +55,29 @@ class RentalFragment : Fragment() {
             }
         }
 
+        binding.btnFilter.setOnClickListener {
+            val bottomSheet = FilterBatteryDialogFragment()
+            bottomSheet.arguments = Bundle().apply {
+                putStringArrayList(FilterBatteryDialogFragment.EXTRA_DATA, listFilter)
+            }
+            bottomSheet.show(parentFragmentManager, FilterBatteryDialogFragment.TAG)
+
+            bottomSheet.clickButton(object: FilterBatteryDialogFragment.OnButtonFilterClicked {
+                override fun onButtonClicked(value: ArrayList<String>) {
+                    listFilter = value
+                    setupRecyclerView()
+                    setupRecyclerViewFilter()
+                }
+            })
+        }
 
         val index = arguments?.getInt(TAB_INDEX, 0)
 
         if(index == 1) {
-            val rentAdapter = RentAdapter(rentalDataList)
-            binding.rvRental.adapter = rentAdapter
-            binding.rvRental.layoutManager = LinearLayoutManager(requireContext())
-            binding.rvRental.hasFixedSize()
-
-            rentAdapter.onItemClickCallback(object: RentAdapter.OnItemClick {
-                override fun onClick(data: Rental) {
-                    if(isPremium) {
-                        val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
-                        intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, data.type)
-                        intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, data.id.toString())
-                        intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, data.description)
-                        intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, data.price)
-                        intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, data.priceInt)
-                        intent.putExtra(SummaryPaymentActivity.FULL_NAME, userModel?.fullName)
-                        startActivity(intent)
-                    } else {
-                        val modalBottomSheet  = RentDialogFragment()
-                        modalBottomSheet.show(parentFragmentManager, RentDialogFragment.TAG)
-                    }
-                }
-            })
-
-            rentAdapter.onDetailItemClickCallback(object: RentAdapter.OnItemClick {
-                override fun onClick(data: Rental) {
-                        val modalBottomSheet  = DetailRentDialogFragment()
-                        modalBottomSheet.show(parentFragmentManager, DetailRentDialogFragment.TAG)
-                        modalBottomSheet.arguments = Bundle().apply {
-                            putString(DetailRentDialogFragment.ID, data.id.toString())
-                            putString(DetailRentDialogFragment.PRICE, data.price)
-                            putDouble(DetailRentDialogFragment.PRICE_INT, data.priceInt)
-                            putString(DetailRentDialogFragment.DESC, data.description)
-                            putString(DetailRentDialogFragment.TYPE, data.type)
-                            putInt(DetailRentDialogFragment.CAPACITY, data.capacity)
-                            putString(DetailRentDialogFragment.NAME, userModel?.fullName)
-                            putBoolean(DetailRentDialogFragment.PREMIUM, isPremium)
-                        }
-                }
-            })
+            binding.layoutFilter.visibility = View.VISIBLE
+            setupRecyclerView()
         } else {
+            binding.layoutFilter.visibility = View.GONE
             rentViewModel.getAllTransaction().observe(viewLifecycleOwner) {
                 it?.let { response ->
                     when (response) {
@@ -131,6 +112,67 @@ class RentalFragment : Fragment() {
 
                         }
                     }
+                }
+            }
+        }
+    }
+
+    private fun setupRecyclerViewFilter() {
+        val filterAdapter = ButtonFilterAdapter(listFilter)
+        binding.rvFilter.adapter = filterAdapter
+        binding.rvFilter.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvRental.hasFixedSize()
+    }
+
+    private fun setupRecyclerView() {
+        val rentAdapter = RentAdapter(getListByFilter(listFilter))
+        binding.rvRental.adapter = rentAdapter
+        binding.rvRental.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRental.hasFixedSize()
+
+        rentAdapter.onItemClickCallback(object: RentAdapter.OnItemClick {
+            override fun onClick(data: Rental) {
+                if(isPremium) {
+                    val intent = Intent(requireContext(), SummaryPaymentActivity::class.java)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_TYPE, data.type)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_RENT_ID, data.id.toString())
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_DESC, data.description)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE, data.price)
+                    intent.putExtra(SummaryPaymentActivity.BATTERY_PRICE_INT, data.priceInt)
+                    intent.putExtra(SummaryPaymentActivity.FULL_NAME, userModel?.fullName)
+                    startActivity(intent)
+                } else {
+                    val modalBottomSheet  = RentDialogFragment()
+                    modalBottomSheet.show(parentFragmentManager, RentDialogFragment.TAG)
+                }
+            }
+        })
+
+        rentAdapter.onDetailItemClickCallback(object: RentAdapter.OnItemClick {
+            override fun onClick(data: Rental) {
+                val modalBottomSheet  = DetailRentDialogFragment()
+                modalBottomSheet.show(parentFragmentManager, DetailRentDialogFragment.TAG)
+                modalBottomSheet.arguments = Bundle().apply {
+                    putString(DetailRentDialogFragment.ID, data.id.toString())
+                    putString(DetailRentDialogFragment.PRICE, data.price)
+                    putDouble(DetailRentDialogFragment.PRICE_INT, data.priceInt)
+                    putString(DetailRentDialogFragment.DESC, data.description)
+                    putString(DetailRentDialogFragment.TYPE, data.type)
+                    putInt(DetailRentDialogFragment.CAPACITY, data.capacity)
+                    putString(DetailRentDialogFragment.NAME, userModel?.fullName)
+                    putBoolean(DetailRentDialogFragment.PREMIUM, isPremium)
+                }
+            }
+        })
+    }
+
+    private fun getListByFilter(list: ArrayList<String>): List<Rental> {
+        return if (list.isEmpty()) {
+            rentalDataList
+        } else {
+            rentalDataList.filter { rental ->
+                list.any { keyword ->
+                    rental.filter == keyword
                 }
             }
         }

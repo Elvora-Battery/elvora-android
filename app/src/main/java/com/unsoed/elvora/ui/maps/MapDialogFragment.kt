@@ -34,7 +34,8 @@ class MapDialogFragment : BottomSheetDialogFragment() {
 
         dataStation?.let {
             binding.apply {
-                tvDistanceStation.text = "${it.distance} km from your location"
+                val formattedDistance = String.format("%.2f", it.distance)
+                tvDistanceStation.text = "$formattedDistance km from your location"
                 tvStationName.text = it.station
                 tvStationStreet.text = it.address
                 tvStationTime.text = it.status

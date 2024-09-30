@@ -42,7 +42,7 @@
             android:elevation="4dp"
             app:itemIconTint="@color/bottom_nav_color"
             app:itemTextColor="@color/bottom_nav_color"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_nav_menu"
             />
     </com.google.android.material.bottomappbar.BottomAppBar>

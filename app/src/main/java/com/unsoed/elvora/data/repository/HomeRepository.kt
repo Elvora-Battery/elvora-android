@@ -41,6 +41,14 @@ class HomeRepository(
         return dataStore.getTierUser().asLiveData()
     }
 
+    fun getReminderSubs(): LiveData<Boolean> {
+        return dataStore.getDailyReminderSubs().asLiveData()
+    }
+
+    suspend fun saveReminderSubs(isActive: Boolean) {
+        return dataStore.saveDailyReminderSubs(isActive)
+    }
+
     suspend fun logout() {
         return dataStore.clearUser()
     }

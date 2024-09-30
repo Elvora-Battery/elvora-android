@@ -6,7 +6,9 @@
     <color name="blue_container">#69B4DF</color>
     <color name="blue_container2">#0282CC</color>
     <color name="green_container">#61D1B0</color>
+    <color name="green_container3">#98E192</color>
     <color name="green_tint">#36D9A9</color>
+    <color name="green_text">#219317</color>
     <color name="green_container2">#5936D9A9</color>
     <color name="md_theme_primary">#006A65</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>

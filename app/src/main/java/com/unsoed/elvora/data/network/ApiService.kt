@@ -13,6 +13,7 @@ import com.unsoed.elvora.data.response.new.NewTransactionResponse
 import com.unsoed.elvora.data.response.transactionId.TransactionResponse
 import com.unsoed.elvora.data.response.verify.CardResponse
 import okhttp3.MultipartBody
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -147,6 +148,11 @@ interface ApiService {
     suspend fun getDashboard(
         @Header("Authorization") token: String,
     ): Response<DashboardResponse>
+
+    @GET("dashboard")
+    fun getDashboardV2(
+        @Header("Authorization") token: String,
+    ): Call<DashboardResponse>
 
     @FormUrlEncoded
     @PATCH("transaction/update/{id}")

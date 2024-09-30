@@ -31,6 +31,11 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
             preferences[PREMIUM_KEY] ?: false
         }
     }
+    fun getDailyReminderSubs(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[DAILY_REMINDER_SUBS_KEY] ?: false
+        }
+    }
 
     fun getUserShipping(): Flow<UserShippingModel> {
         return dataStore.data.map { preferences ->
@@ -86,6 +91,12 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         }
     }
 
+    suspend fun saveDailyReminderSubs(isActive: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PREMIUM_KEY] = isActive
+        }
+    }
+
 
     suspend fun clearUser() {
         dataStore.edit { preferences ->
@@ -110,6 +121,8 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
         private val KTP_NAME_KEY = stringPreferencesKey("ktp_name_key")
         private val KTP_NIK_KEY = stringPreferencesKey("ktp_nik_key")
         private val KTP_DATE_KEY = stringPreferencesKey("ktp_date_key")
+
+        private val DAILY_REMINDER_SUBS_KEY = booleanPreferencesKey("daily_reminder_subs_key")
 
         @Volatile
         private var INSTANCE: UserPreferences? = null

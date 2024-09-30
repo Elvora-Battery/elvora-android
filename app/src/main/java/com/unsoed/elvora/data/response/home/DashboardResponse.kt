@@ -11,21 +11,6 @@ data class DashboardResponse(
 	val message: String? = null
 )
 
-data class Transaction(
-
-	@field:SerializedName("token_id")
-	val tokenId: Int? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("battery_name")
-	val batteryName: String? = null,
-
-	@field:SerializedName("rent_type_id")
-	val rentTypeId: Int? = null,
-)
-
 data class Data(
 
 	@field:SerializedName("battery")
@@ -38,42 +23,6 @@ data class Data(
 	val transaction: Transaction? = null
 )
 
-data class Battery(
-
-	@field:SerializedName("createdAt")
-	val createdAt: String? = null,
-
-	@field:SerializedName("arus")
-	val arus: String? = null,
-
-	@field:SerializedName("token_id")
-	val tokenId: Int? = null,
-
-	@field:SerializedName("latitude")
-	val latitude: String? = null,
-
-	@field:SerializedName("suhu")
-	val suhu: String? = null,
-
-	@field:SerializedName("tegangan")
-	val tegangan: String? = null,
-
-	@field:SerializedName("id")
-	val id: Int? = null,
-
-	@field:SerializedName("daya")
-	val daya: String? = null,
-
-	@field:SerializedName("daya_digunakan")
-	val dayaDigunakan: String? = null,
-
-	@field:SerializedName("longitude")
-	val longitude: String? = null,
-
-	@field:SerializedName("updatedAt")
-	val updatedAt: String? = null
-)
-
 data class User(
 
 	@field:SerializedName("name")
@@ -84,4 +33,70 @@ data class User(
 
 	@field:SerializedName("email")
 	val email: String? = null
+)
+
+data class Transaction(
+
+	@field:SerializedName("token_id")
+	val tokenId: Int? = null,
+
+	@field:SerializedName("battery_name")
+	val batteryName: String? = null,
+
+	@field:SerializedName("rent_type_id")
+	val rentTypeId: Int? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null
+)
+
+data class Battery(
+
+	@field:SerializedName("arus")
+	val arus: Double? = null,
+
+	@field:SerializedName("remainingTime")
+	val remainingTime: Int? = null,
+
+	@field:SerializedName("distanceTravelled")
+	val distanceTravelled: Double? = null,
+
+	@field:SerializedName("latitude")
+	val latitude: Double? = null,
+
+	@field:SerializedName("status_relay")
+	val statusRelay: Boolean? = null,
+
+	@field:SerializedName("daya")
+	val daya: Double? = null,
+
+	@field:SerializedName("createdAt")
+	val createdAt: String? = null,
+
+	@field:SerializedName("token_id")
+	val tokenId: Int? = null,
+
+	@field:SerializedName("suhu")
+	val suhu: Int? = null,
+
+	@field:SerializedName("chargingStatus")
+	val chargingStatus: String? = null,
+
+	@field:SerializedName("tegangan")
+	val tegangan: Double? = null,
+
+	@field:SerializedName("batteryPercentage")
+	val batteryPercentage: Double? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null,
+
+	@field:SerializedName("daya_digunakan")
+	val dayaDigunakan: Double? = null,
+
+	@field:SerializedName("longitude")
+	val longitude: Double? = null,
+
+	@field:SerializedName("updatedAt")
+	val updatedAt: String? = null
 )

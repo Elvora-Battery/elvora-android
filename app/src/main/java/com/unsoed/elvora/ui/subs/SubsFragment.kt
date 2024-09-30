@@ -1,12 +1,14 @@
 package com.unsoed.elvora.ui.subs
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -57,7 +59,12 @@ class SubsFragment : Fragment() {
         }
 
         binding.btnSeeAll.setOnClickListener {
-            Toast.makeText(requireContext(), "The feature is still under development, please try again later.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), TransactionActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnSubsNow.setOnClickListener {
+
         }
     }
 
@@ -91,8 +98,13 @@ class SubsFragment : Fragment() {
                             setupActiveSubs(activeSubs!!)
                             binding.tvEmptySubs.visibility = View.GONE
                             binding.btnSubsNow.visibility = View.VISIBLE
+                            binding.btnSubsNow.text = "Already Subscription"
+                            binding.btnSubsNow.setTextColor(requireContext().getColor(R.color.green_text))
+                            binding.btnSubsNow.backgroundTintList =  ColorStateList.valueOf(
+                                ContextCompat.getColor(requireContext(), R.color.green_container2))
                             binding.btnArrowNext.visibility = View.VISIBLE
                             binding.divider.visibility = View.VISIBLE
+                            binding.btnSeeAll.visibility = View.VISIBLE
                             binding.cvTotalSubs.tvNumberSumary.text = data.data.allSubscriptions?.size.toString()
                         } else {
                             Log.d("SubsFragment", "Data Subs Kosong")
@@ -160,7 +172,7 @@ class SubsFragment : Fragment() {
             Log.d("SubsFragment", "List Ada")
             binding.rvSubs.layoutManager = LinearLayoutManager(requireContext())
             binding.rvSubs.setHasFixedSize(true)
-            binding.rvSubs.adapter = SubsAdapter(listSubs)
+            binding.rvSubs.adapter = SubsAdapter(listSubs.take(3))
             binding.tvEmptyList.visibility = View.GONE
             binding.ltEmptyList.visibility = View.GONE
         } else {

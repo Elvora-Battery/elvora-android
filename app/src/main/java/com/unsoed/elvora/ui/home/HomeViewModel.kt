@@ -29,6 +29,17 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         return homeRepository.getTierUser()
     }
 
+    fun getReminderSubs(): LiveData<Boolean> {
+        return homeRepository.getReminderSubs()
+    }
+
+
+    fun setReminderSubs(isEnabled: Boolean) {
+        viewModelScope.launch {
+            homeRepository.saveReminderSubs(isEnabled)
+        }
+    }
+
     fun getStationRecommendation(mapRequest: MapRequest): LiveData<ApiResult<List<StationsItem>>> {
         return homeRepository.getStationRecommendation(mapRequest)
     }

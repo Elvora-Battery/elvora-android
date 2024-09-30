@@ -32,7 +32,7 @@ class ContactSupportActivity : AppCompatActivity() {
 
         binding.btnEmail.setOnClickListener {
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                data = Uri.parse("mailto:")
+                data = Uri.parse("mailto:batteryelvora@gmail.com")
                 putExtra(Intent.EXTRA_EMAIL, "batteryelvora@gmail.com")
                 putExtra(Intent.EXTRA_SUBJECT, "I need help")
             }

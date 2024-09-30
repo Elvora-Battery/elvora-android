@@ -16,7 +16,7 @@
         <FrameLayout
             android:id="@+id/frameLayout"
             android:layout_width="match_parent"
-            android:layout_height="285dp"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -131,7 +131,7 @@
                     android:id="@+id/cv_layout_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp">
+                    android:padding="18dp">
 
                     <TextView
                         android:id="@+id/tv_id_battery"
@@ -185,7 +185,6 @@
                         android:id="@+id/imageView3"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_marginTop="4dp"
                         android:src="@drawable/icon_location"
                         app:layout_constraintStart_toStartOf="@+id/tv_motorcycle_name"
                         app:layout_constraintTop_toBottomOf="@+id/tv_motorcycle_name" />
@@ -193,21 +192,24 @@
                     <TextView
                         android:id="@+id/tv_member_location"
                         style="@style/TextAppearance.Elvora.BodySmall"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp"
                         android:layout_marginStart="4dp"
                         android:textColor="#0282CC"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/imageView3"
                         app:layout_constraintTop_toTopOf="@+id/imageView3"
                         tools:text="Mandiraja, Banjarnegara, Jawa Tengah" />
 
                     <Button
+                        android:id="@+id/btn_activate_dashboard"
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Activate Now"
+                        android:layout_marginTop="4dp"
+                        android:enabled="false"
+                        android:text="Active"
                         android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
                         android:textColor="#FFB13D"
                         app:layout_constraintStart_toStartOf="@+id/imageView3"

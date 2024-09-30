@@ -29,8 +29,10 @@ retrofit = "2.9.0"
 datastorePreferences = "1.0.0"
 kotlinxCoroutinesAndroid = "1.5.2"
 kotlinxCoroutinesCore = "1.5.2"
+workRuntime = "2.9.1"
 
 [libraries]
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }

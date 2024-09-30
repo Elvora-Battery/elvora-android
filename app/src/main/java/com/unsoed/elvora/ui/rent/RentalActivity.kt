@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,10 @@ class RentalActivity : AppCompatActivity() {
             insets
         }
 
+        binding.btnArrowBack.setOnClickListener {
+            OnBackPressedDispatcher().onBackPressed()
+            finish()
+        }
         setupRecyclerView()
     }
 

@@ -214,16 +214,16 @@
                         style="@style/TextAppearance.Elvora.LabelLarge"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:text="Subscription Now"
-                        android:background="@drawable/bg_text_blue"
-                        android:paddingTop="2dp"
                         android:paddingHorizontal="10dp"
-                        android:backgroundTint="#FFD9DD"
+                        android:paddingTop="2dp"
+                        android:background="@drawable/bg_text_blue"
+                        android:text="Subscription Now"
                         android:textColor="#E75353"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/tv_subs_end_month"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/tv_subs_end_month" />
+                        app:layout_constraintTop_toTopOf="@+id/tv_subs_end_month"
+                        app:layout_constraintVertical_bias="1.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>

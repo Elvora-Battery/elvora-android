@@ -1,6 +1,9 @@
 package com.unsoed.elvora.ui.home
 
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +13,12 @@ import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -21,6 +30,8 @@ import com.unsoed.elvora.data.response.home.Transaction
 import com.unsoed.elvora.databinding.FragmentHomeBinding
 import com.unsoed.elvora.helper.HomeModelFactory
 import com.unsoed.elvora.ui.profile.ProfileActivity
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class HomeFragment : Fragment() {
 
@@ -31,8 +42,11 @@ class HomeFragment : Fragment() {
     }
     private var userData: UserModel? = null
     private var isTierUserPremium: Boolean = false
+    private var isSubsReminderActive: Boolean = false
     private var batteryData: Battery? = null
     private var transactionData: Transaction? = null
+    private lateinit var workManager: WorkManager
+    private lateinit var periodicWorkRequest: PeriodicWorkRequest
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,6 +59,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        workManager = WorkManager.getInstance(requireContext())
 
         initView()
         setupViewFragment()
@@ -70,14 +85,14 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.getUserShipping().observe(viewLifecycleOwner) {
-            it?.let { data ->
-                if (data.address.isEmpty()) {
-                    binding.tvMemberLocation.text = "Location is not set"
-                } else {
-                    binding.tvMemberLocation.text =
-                        "${data.street}, ${data.village}"
-                }
+        homeViewModel.getReminderSubs().observe(viewLifecycleOwner) { isActive ->
+            if (isActive) {
+                isSubsReminderActive = true
+                Toast.makeText(requireContext(), "Daily reminder subs aktif", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                isSubsReminderActive = false
+                homeViewModel.setReminderSubs(true)
             }
         }
 
@@ -88,6 +103,30 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
+    }
+
+    private fun startPeriodicTask() {
+        val data = Data.Builder()
+            .putString(ReminderWorker.EXTRA_TOKEN, userData?.token)
+            .build()
+
+        val constraint = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        periodicWorkRequest =
+            PeriodicWorkRequest.Builder(ReminderWorker::class.java, 15, TimeUnit.MINUTES)
+                .setInputData(data)
+                .setConstraints(constraint)
+                .build()
+
+        workManager.enqueue(periodicWorkRequest)
+        workManager.getWorkInfoByIdLiveData(periodicWorkRequest.id)
+            .observe(viewLifecycleOwner) { workInfo ->
+                if (workInfo.state == WorkInfo.State.ENQUEUED) {
+                    Log.d(TAG, workInfo.state.name)
+                }
+            }
     }
 
     private fun setupCardDriveTime() {
@@ -101,7 +140,7 @@ class HomeFragment : Fragment() {
         val shapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
 
         binding.cardTime.apply {
-            tvTitleSumary.text = "Arus"
+            tvTitleSumary.text = "On Charging"
             cvSummary.background = shapeDrawable
         }
     }
@@ -117,7 +156,7 @@ class HomeFragment : Fragment() {
         val shapeDrawable = MaterialShapeDrawable(shapeAppearanceModel)
 
         binding.cardDistance.apply {
-            tvTitleSumary.text = "Tegangan"
+            tvTitleSumary.text = "Total Distance"
             cvSummary.background = shapeDrawable
         }
     }
@@ -178,7 +217,8 @@ class HomeFragment : Fragment() {
                     }
 
                     is ApiResult.Error -> {
-                        Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), response.message, Toast.LENGTH_SHORT)
+                            .show()
                         binding.ltLoading.visibility = View.GONE
                         binding.cvLayoutDashboard.visibility = View.INVISIBLE
                         binding.tvEmptySubs.visibility = View.VISIBLE
@@ -197,7 +237,8 @@ class HomeFragment : Fragment() {
                             transactionData?.let { transaction ->
                                 binding.apply {
                                     tvIdBattery.text = "EV${transaction.id}"
-                                    tvIdBatteryType.text = if (transaction.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
+                                    tvIdBatteryType.text =
+                                        if (transaction.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
                                     tvMotorcycleName.text = transaction.batteryName
                                 }
                             }
@@ -208,30 +249,71 @@ class HomeFragment : Fragment() {
                             binding.cvLayoutDashboard.visibility = View.INVISIBLE
                         }
 
-                        if(response.data.battery?.id != null) {
+                        if (response.data.battery?.id != null) {
+                            if(!isSubsReminderActive) {
+                                startPeriodicTask()
+                            }
                             batteryData = response.data.battery
                             batteryData?.let { battery ->
                                 binding.apply {
-                                    cardTempMonitoring.tvCardPercentage.text = "${battery.suhu ?: "-"}%"
-                                    cardTempMonitoring.tvCardEstimate.text = if(battery.suhu.isNullOrEmpty()) "Unknown Condition" else "Good Condition"
-                                    cardConsumption.tvNumberSumary.text = "${battery.dayaDigunakan ?: "-"}"
+                                    cardTempMonitoring.tvCardPercentage.text =
+                                        "${battery.suhu ?: "-"}°C"
+                                    cardTempMonitoring.tvCardEstimate.text =
+                                        if (battery.suhu == null) "Unknown Condition" else "Good Condition"
+                                    cardConsumption.tvNumberSumary.text =
+                                        "${String.format("%.2f", battery.dayaDigunakan) ?: "-"}"
                                     cardConsumption.tvSatuanSumary.text = "KwH"
-                                    cardTime.tvNumberSumary.text = "${battery.arus ?: "-"}"
-                                    cardTime.tvSatuanSumary.text = "A"
-                                    cardDistance.tvNumberSumary.text = "${battery.tegangan ?: "-"}"
-                                    cardDistance.tvSatuanSumary.text = "V"
-                                    cardBatteryMonitoring.tvCardPercentage.text = "${battery.daya ?: "-"}°C"
+                                    cardTime.tvNumberSumary.text =
+                                        if (battery.chargingStatus == "Not Charging") "No" else "Yes"
+                                    cardTime.tvSatuanSumary.text = ""
+                                    cardDistance.tvNumberSumary.text =
+                                        "${battery.distanceTravelled ?: "-"}"
+                                    cardDistance.tvSatuanSumary.text = "Km"
+                                    cardBatteryMonitoring.tvCardPercentage.text = "${
+                                        String.format(
+                                            "%.2f",
+                                            battery.batteryPercentage
+                                        ) ?: "-"
+                                    }%"
                                 }
+                                getAddress(battery.latitude!!, battery.longitude!!)
                             }
                         } else {
                             binding.apply {
                                 cardTempMonitoring.tvCardEstimate.text = "Unknown Condition"
                                 cardConsumption.tvNumberSumary.text = "-"
-                                cardTime.tvNumberSumary.text = "-"
+                                cardTime.tvNumberSumary.text = "No"
                                 cardDistance.tvNumberSumary.text = "-"
                                 cardBatteryMonitoring.tvCardPercentage.text = "-"
                                 cardTempMonitoring.tvCardPercentage.text = "-"
                             }
+                        }
+                    }
+
+                    ApiResult.Empty -> {}
+                }
+            }
+        }
+    }
+
+    private fun getAddress(latitude: Double, longitude: Double) {
+        val geocoder = Geocoder(requireContext(), Locale.getDefault())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            geocoder.getFromLocation(latitude, longitude, 2) { list ->
+                if (list.isNotEmpty()) {
+                    val address = buildAddress(list[0])
+                    if (address.isNotEmpty()) {
+                        activity?.runOnUiThread {
+                            binding.tvMemberLocation.text = address
+                        }
+                    } else {
+                        activity?.runOnUiThread {
+                            binding.tvMemberLocation.text = "Location is not found"
+                            Toast.makeText(
+                                requireContext(),
+                                "Location Helper: address not found",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
@@ -239,8 +321,58 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun buildAddress(address: Address): String {
+        val rtrwPattern = Regex("(RT\\.\\d+/RW\\.\\d+)")
+
+        val addressLine = address.getAddressLine(0)
+        val rtrwMatchResult = rtrwPattern.find(addressLine)
+
+        val mRtRw = rtrwMatchResult?.value ?: ""
+        Log.d("LocationStore", "RT/RW: $mRtRw")
+
+        val premises =
+            if (address.premises != null && address.premises.contains("Blok"))
+                address.premises else "Blok ${address.premises}"
+
+        val subFare =
+            if (address.subThoroughfare != null && address.subThoroughfare.contains("No"))
+                address.subThoroughfare else "No ${address.subThoroughfare}"
+
+        val addresses = arrayOf(
+            if (address.thoroughfare == null || address.thoroughfare.isEmpty()) "${address.featureName} $mRtRw" else "${address.thoroughfare} $mRtRw",
+            if (address.premises == null || address.premises.isEmpty()) null else premises,
+            if (address.subThoroughfare == null || address.subThoroughfare.isEmpty()) null else subFare
+        )
+
+        val builder = StringBuilder()
+        for (addressString in addresses) {
+            if (addressString.isNullOrEmpty()) {
+                continue
+            }
+            if (builder.length + addressString.length > MAX_ADDRESS_LENGTH) {
+                builder.substring(0, builder.length - 2)
+                break
+            }
+            builder.append(addressString)
+            if (builder.length + 2 > MAX_ADDRESS_LENGTH) {
+                break
+            }
+            builder.append(", ")
+        }
+
+        val simpleAddress = builder.toString()
+            .trim { it <= ' ' }
+
+        return ("$simpleAddress ${address.subLocality ?: "-"}, ${address.locality ?: "-"}, ${address.subAdminArea ?: "-"}, ${address.adminArea ?: "-"}")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "HomeFragment"
+        const val MAX_ADDRESS_LENGTH = 75
     }
 }

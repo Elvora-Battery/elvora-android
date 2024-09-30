@@ -3,6 +3,7 @@ package com.unsoed.elvora.ui.rent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -65,6 +66,16 @@ class RentalInformationActivity : AppCompatActivity(){
                 }
 
             })
+        }
+
+        binding.btnSwitchRental.setOnCheckedChangeListener { _, isChecked ->
+            if(isChecked) {
+                binding.btnSwitchRental.isChecked = true
+                Toast.makeText(this, "This is default battery rental", Toast.LENGTH_SHORT).show()
+            } else {
+                binding.btnSwitchRental.isChecked = false
+                Toast.makeText(this, "Remove default battery rental", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

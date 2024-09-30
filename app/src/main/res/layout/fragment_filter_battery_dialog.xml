@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".ui.rent.FilterBatteryDialogFragment">
+
+    <TextView
+        style="@style/TextAppearance.Elvora.TitleMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Battery Type Merk"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/btn_cb_type_gesits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gesits"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="6dp"
+        android:includeFontPadding="true"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="4dp"
+        android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/btn_cb_type_selis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Selis E-Max"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="6dp"
+        android:includeFontPadding="true"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="4dp"
+        android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+        />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/btn_cb_type_alva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alva CERVO"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="6dp"
+        android:includeFontPadding="true"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="4dp"
+        android:textAppearance="@style/TextAppearance.Elvora.BodyMedium"
+        />
+
+    <Button
+        android:id="@+id/btn_apply_filter"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Apply"
+        android:textAppearance="@style/TextAppearance.Elvora.LabelLarge"
+        app:shapeAppearance="@style/ShapeAppearance.Elvora.SmallComponent"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginVertical="20dp"
+        />
+
+
+</LinearLayout>
