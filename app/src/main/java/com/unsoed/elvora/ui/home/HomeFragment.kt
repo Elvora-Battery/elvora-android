@@ -130,7 +130,7 @@ class HomeFragment : Fragment() {
             .build()
 
         periodicWorkRequest =
-            PeriodicWorkRequest.Builder(ReminderWorker::class.java, 15, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(ReminderWorker::class.java, 12, TimeUnit.HOURS)
                 .setInputData(data)
                 .setConstraints(constraint)
                 .build()

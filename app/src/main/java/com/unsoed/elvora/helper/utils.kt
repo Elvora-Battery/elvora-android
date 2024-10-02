@@ -83,3 +83,11 @@ fun formatDate(inputDate: String): String {
 fun formatNumber(value: Int): String {
     return NumberFormat.getNumberInstance(Locale("id", "ID")).format(value)
 }
+
+fun secondsToDays(seconds: Long): String {
+    val days = seconds / 86400
+    val hours = (seconds % 86400) / 3600
+    val minutes = (seconds % 3600) / 60
+    val remainingSeconds = seconds % 60
+    return "$days days, $hours hours, $minutes minutes, $remainingSeconds seconds"
+}

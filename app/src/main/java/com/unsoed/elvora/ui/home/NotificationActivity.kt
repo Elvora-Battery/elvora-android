@@ -42,6 +42,7 @@ class NotificationActivity : AppCompatActivity() {
                     }
 
                     is ApiResult.Success -> {
+                        binding.ltLoading.visibility = View.GONE
                         val listNotification: List<DataItem> = response.data
                         if(listNotification.isNotEmpty()) {
                             val notificationAdapter = NotificationAdapter(listNotification)
@@ -56,6 +57,8 @@ class NotificationActivity : AppCompatActivity() {
                     }
 
                     is ApiResult.Error -> {
+                        binding.ltLoading.visibility = View.GONE
+                        binding.layoutEmpty.visibility = View.GONE
                         Toast.makeText(this, response.message, Toast.LENGTH_LONG).show()
                     }
 
