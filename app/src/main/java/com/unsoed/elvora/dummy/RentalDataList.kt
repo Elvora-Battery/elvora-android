@@ -22,7 +22,7 @@ val rentalDataList = listOf(
         priceInt = 400.000
     ),
     Rental(
-        id = 3,
+        id = 2,
         price = "Rp 400.000",
         type = "Alva CERVO 72V 40Ah Battery",
         description = "The mandatory rental period is 3 years 4 month",
@@ -31,7 +31,7 @@ val rentalDataList = listOf(
         priceInt = 400.000
     ),
     Rental(
-        id = 4,
+        id = 2,
         price = "Rp 400.000",
         type = "Selis E-Max 72V 40Ah Battery",
         filter = "Selis",

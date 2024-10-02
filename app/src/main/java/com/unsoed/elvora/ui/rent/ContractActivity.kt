@@ -1,16 +1,34 @@
 package com.unsoed.elvora.ui.rent
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Html
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.WriterException
+import com.google.zxing.qrcode.QRCodeWriter
 import com.unsoed.elvora.R
+import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.databinding.ActivityContractBinding
+import com.unsoed.elvora.helper.RentModelFactory
+import com.unsoed.elvora.ui.sumpayment.PaymentMethodActivity
 
 class ContractActivity : AppCompatActivity() {
     private lateinit var binding: ActivityContractBinding
+    private val rentViewModel: RentViewModel by viewModels {
+        RentModelFactory.getInstance(this)
+    }
+    private var name = ""
+    private var idBattery = ""
+    private var paymentTotal: Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +40,20 @@ class ContractActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        rentViewModel.getUserSession().observe(this) {
+            it?.let {
+                name = it.fullName
+            }
+        }
+
+        paymentTotal = intent.getDoubleExtra(PAYMENT_PRICE, 0.0)
+        val id = intent.getStringExtra(BATTERY_ID)
+        id?.let {
+            idBattery = id
+        }
+
+        setupAction()
 
         val htmlText1 = "<ol>" +
                 "<li>The First Party agrees to rent to the Second Party, and the Second Party agrees to rent from the First Party, a battery [Type/Model of Battery] (hereinafter referred to as the \"Battery\").</li>" +
@@ -74,5 +106,70 @@ class ContractActivity : AppCompatActivity() {
                 "</ol>"
 
         binding.tvArticle7.text = Html.fromHtml(htmlText7, Html.FROM_HTML_MODE_LEGACY)
+    }
+
+    private fun setupAction() {
+        binding.btnArrowBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+            finish()
+        }
+
+        binding.btnGenerateToken.setOnClickListener {
+            val writer = QRCodeWriter()
+            try {
+                val bitMatrix = writer.encode(name , BarcodeFormat.QR_CODE, 128, 128)
+                val width = bitMatrix.width
+                val height = bitMatrix.height
+                val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+                for(x in 0 until width) {
+                    for (y in 0 until  height) {
+                        bmp.setPixel(x, y, if(bitMatrix[x, y]) Color.BLACK else Color.WHITE)
+                    }
+                }
+                binding.ivBarcode.visibility = View.VISIBLE
+                binding.btnGenerateToken.visibility = View.GONE
+                binding.ivBarcode.setImageBitmap(bmp)
+            } catch (e: WriterException) {
+                e.printStackTrace()
+            }
+        }
+
+        binding.btnContinuePayment.setOnClickListener {
+            rentViewModel.newTransaction(idRent = idBattery).observe(this) {
+                it?.let { data ->
+                    when(data) {
+                        is ApiResult.Loading -> {
+                            binding.btnContinuePayment.visibility = View.GONE
+                            binding.ltLoading.visibility = View.VISIBLE
+                        }
+
+                        ApiResult.Empty -> {
+
+                        }
+
+                        is ApiResult.Error -> {
+                            binding.btnContinuePayment.visibility = View.VISIBLE
+                            binding.ltLoading.visibility = View.GONE
+                            Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
+                        }
+
+                        is ApiResult.Success -> {
+                            Toast.makeText(this, data.data.status, Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@ContractActivity, PaymentMethodActivity::class.java)
+                            intent.putExtra(PaymentMethodActivity.PAYMENT_PRICE, paymentTotal)
+                            intent.putExtra(PaymentMethodActivity.TRANSACTION_ID, data.data.id)
+                            intent.putExtra(PaymentMethodActivity.BATTERY_TYPE, data.data.batteryName)
+                            intent.putExtra(PaymentMethodActivity.BATTERY_ID, data.data.rentTypeId)
+                            startActivity(intent)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    companion object {
+        const val PAYMENT_PRICE = "payment_price"
+        const val BATTERY_ID = "battery_id"
     }
 }

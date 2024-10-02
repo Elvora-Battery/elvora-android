@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.google.gson.Gson
 import com.unsoed.elvora.R
 import com.unsoed.elvora.data.network.ApiConfig
 
@@ -30,8 +31,10 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters): Worker(c
                     val transactionData = responseBody.data?.transaction
                     if(batteryData != null) {
                         resultStatus = Result.success()
-                        showNotification("${transactionData?.batteryName} Subscription", "Your subscription for your (${transactionData?.batteryName}) battery will expire in ${batteryData.remainingTime} days.")
+                        val content = "Your subscription for your (${transactionData?.batteryName}) battery will expire in ${batteryData.remainingTime} seconds."
+                        showNotification("${transactionData?.batteryName} Subscription", content)
                         Log.d(TAG, "onSuccess: Selesai.....")
+                        postNotificationData(token, "Due Date", content, transactionData?.id, "Subscription Battery")
                     } else {
                         resultStatus = Result.failure()
                         Log.d(TAG, "onSuccess: kosong.....")
@@ -49,6 +52,33 @@ class ReminderWorker(context: Context, workerParams: WorkerParameters): Worker(c
         }
 
         return resultStatus as Result
+    }
+
+    private fun postNotificationData(token: String, title: String, content: String, id: Int?, label: String) {
+        Log.d(TAG, "postNotificationData: Mulai post notifikasi...")
+        Log.d(TAG, "postNotificationData: Mulai post notifikasi...token : $token")
+        val tokenPost = "Bearer $token"
+        Log.d(TAG, tokenPost.toString())
+
+        try {
+            val response = ApiConfig.getApiService().postNotification(
+                token = tokenPost,
+                title = title,
+                content = content,
+                rentTransactionInt = id!!,
+                label = label,
+            ).execute()
+            if (response.isSuccessful) {
+                Log.d(TAG, "postNotificationData: Sukses post notifikasi ke server")
+            } else {
+                Log.d(TAG, "postNotificationData: Gagal post notifikasi ke server")
+                val gson = Gson()
+                val errorResponse = response.errorBody()?.string()
+                Log.e(TAG, "Error: $errorResponse")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "postNotificationData: Error posting notifikasi", e)
+        }
     }
 
     private fun showNotification(title: String, content: String) {

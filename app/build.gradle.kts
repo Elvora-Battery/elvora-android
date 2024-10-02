@@ -42,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation(libs.zxing.android.embedded)
+    implementation(libs.uikit)
+    implementation(libs.uikit.v200)
     implementation(libs.lottie)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.kotlinx.coroutines.core)

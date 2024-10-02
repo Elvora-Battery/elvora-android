@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -76,6 +77,11 @@ class DetailTransactionActivity : AppCompatActivity() {
         binding.btnActivateToken.setOnClickListener {
             val intent = Intent(this@DetailTransactionActivity, ActivateActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnArrowBack.setOnClickListener {
+            OnBackPressedDispatcher().onBackPressed()
+            finish()
         }
     }
 

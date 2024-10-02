@@ -7,6 +7,7 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -26,6 +28,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.unsoed.elvora.R
+import com.unsoed.elvora.adapter.MapAdapter
 import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.MapRequest
 import com.unsoed.elvora.data.response.map.StationsItem
@@ -90,6 +93,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     is ApiResult.Success -> {
                         val listStation: List<StationsItem> = response.data
                         setMarker(listStation)
+                        setupRecyclerView(listStation)
 
                     }
 
@@ -101,6 +105,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+    }
+
+    private fun setupRecyclerView(listStation: List<StationsItem>) {
+        if(listStation.isNotEmpty()) {
+            val adapter = MapAdapter(listStation)
+            binding.rvMap.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            binding.rvMap.setHasFixedSize(true)
+            binding.rvMap.adapter = adapter
+
+            adapter.onItemClickCallback(object: MapAdapter.OnItemClick {
+                override fun onClick(data: StationsItem) {
+                    val modalBottomSheet  = MapDialogFragment()
+                    modalBottomSheet.show(supportFragmentManager, MapDialogFragment.TAG)
+                    modalBottomSheet.arguments = Bundle().apply {
+                        putParcelable(MapDialogFragment.EXTRA_DATA, data)
+                    }
+                }
+            })
+        } else {
+            binding.rvMap.visibility = View.GONE
+        }
+
     }
 
     private fun setMarker(listStation: List<StationsItem>) {

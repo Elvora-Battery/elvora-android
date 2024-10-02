@@ -3,7 +3,6 @@ package com.unsoed.elvora.ui.sumpayment
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.enableEdgeToEdge
@@ -12,10 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.unsoed.elvora.R
-import com.unsoed.elvora.data.ApiResult
 import com.unsoed.elvora.data.UserShippingModel
 import com.unsoed.elvora.databinding.ActivitySummaryPaymentBinding
 import com.unsoed.elvora.helper.RentModelFactory
+import com.unsoed.elvora.ui.rent.ContractActivity
 import com.unsoed.elvora.ui.rent.RentViewModel
 import java.text.DecimalFormat
 
@@ -73,38 +72,10 @@ class SummaryPaymentActivity : AppCompatActivity() {
             if(shippingInformation == null) {
                 Toast.makeText(this, "Fill in all your shipping information", Toast.LENGTH_SHORT).show()
             } else {
-                id?.let { id ->
-                    rentViewModel.newTransaction(idRent = id).observe(this) {
-                        it?.let { data ->
-                            when(data) {
-                                is ApiResult.Loading -> {
-                                    binding.btnPayNow.visibility = View.GONE
-                                    binding.ltLoading.visibility = View.VISIBLE
-                                }
-
-                                ApiResult.Empty -> {
-
-                                }
-
-                                is ApiResult.Error -> {
-                                    binding.btnPayNow.visibility = View.VISIBLE
-                                    binding.ltLoading.visibility = View.GONE
-                                    Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
-                                }
-
-                                is ApiResult.Success -> {
-                                    Toast.makeText(this, data.data.status, Toast.LENGTH_SHORT).show()
-                                    val intent = Intent(this@SummaryPaymentActivity, PaymentMethodActivity::class.java)
-                                    intent.putExtra(PaymentMethodActivity.PAYMENT_PRICE, paymentTotal)
-                                    intent.putExtra(PaymentMethodActivity.TRANSACTION_ID, data.data.id)
-                                    intent.putExtra(PaymentMethodActivity.BATTERY_TYPE, data.data.batteryName)
-                                    intent.putExtra(PaymentMethodActivity.BATTERY_ID, data.data.rentTypeId)
-                                    startActivity(intent)
-                                }
-                            }
-                        }
-                    }
-                }
+                val intent = Intent(this@SummaryPaymentActivity, ContractActivity::class.java)
+                intent.putExtra(ContractActivity.PAYMENT_PRICE, paymentTotal)
+                intent.putExtra(ContractActivity.BATTERY_ID, id)
+                startActivity(intent)
             }
         }
     }

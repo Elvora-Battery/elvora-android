@@ -15,6 +15,7 @@ import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.PaidTransactionResponse
 import com.unsoed.elvora.data.response.getSubs.AllSubsriptionsItem
 import com.unsoed.elvora.data.response.new.Data
+import com.unsoed.elvora.data.response.transaction.DataItem
 import com.unsoed.elvora.data.response.verify.KtpData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.firstOrNull
@@ -220,6 +221,35 @@ class RentRepository(private val apiService: ApiService, private val dataStore: 
                     val responseBody = response.body()
                     if(responseBody != null) {
                         emit(ApiResult.Success(responseBody.data?.allSubscriptions!!))
+                    }
+                } else {
+                    Log.e(TAG, "Error getAllTransaction")
+                    val gson = Gson()
+                    val errorResponse = response.errorBody()?.string()
+                    val errorMessage = gson.fromJson(errorResponse, CommonResponse::class.java)
+                    emit(ApiResult.Error(errorMessage.message ?: "Unknown Error getAllTransaction"))
+                }
+            } catch (e: Exception) {
+                emit(ApiResult.Error(e.message ?: "Unknown Error"))
+            }
+        }
+    }
+
+    fun getActivityTransaction(): LiveData<ApiResult<List<DataItem>>> {
+        return liveData {
+            val tokenUser = withContext(Dispatchers.IO) {
+                dataStore.getUser().firstOrNull()
+            }
+
+            try {
+                emit(ApiResult.Loading)
+                val response = apiService.getTransactionActivity(
+                    token = "Bearer ${tokenUser?.token}",
+                )
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if(responseBody != null) {
+                        emit(ApiResult.Success(responseBody.data!!))
                     }
                 } else {
                     Log.e(TAG, "Error getAllTransaction")

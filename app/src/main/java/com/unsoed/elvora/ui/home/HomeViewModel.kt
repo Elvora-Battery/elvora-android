@@ -11,9 +11,13 @@ import com.unsoed.elvora.data.UserVerify
 import com.unsoed.elvora.data.repository.HomeRepository
 import com.unsoed.elvora.data.response.home.Data
 import com.unsoed.elvora.data.response.map.StationsItem
+import com.unsoed.elvora.data.response.notification.DataItem
+import com.unsoed.elvora.helper.Event
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
+    val isReminderSubsActive: LiveData<Event<Boolean>> = homeRepository.isDailyReminderActive
+
     fun getUserSession(): LiveData<UserModel> {
         return homeRepository.getUserSession()
     }
@@ -29,7 +33,7 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
         return homeRepository.getTierUser()
     }
 
-    fun getReminderSubs(): LiveData<Boolean> {
+    fun getReminderSubs() {
         return homeRepository.getReminderSubs()
     }
 
@@ -46,6 +50,9 @@ class HomeViewModel(private val homeRepository: HomeRepository) : ViewModel() {
 
     fun getDashboardData(): LiveData<ApiResult<Data>> {
         return homeRepository.getDashboardData()
+    }
+    fun getNotificationData(): LiveData<ApiResult<List<DataItem>>> {
+        return homeRepository.getNotificationData()
     }
     fun changePassword(currentPass: String, newPass: String, confirmPass: String): LiveData<ApiResult<String>> {
         return homeRepository.changePassword(currentPass, newPass, confirmPass)

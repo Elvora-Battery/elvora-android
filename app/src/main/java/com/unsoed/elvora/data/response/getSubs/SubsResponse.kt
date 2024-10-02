@@ -111,5 +111,19 @@ data class Data(
 	val allSubscriptions: List<AllSubsriptionsItem>? = null,
 
 	@field:SerializedName("activeSubscription")
-	val activeSubscription: ActiveSubscription? = null
+	val activeSubscription: ActiveSubscription? = null,
+
+	@field:SerializedName("subs")
+	val subs: SubsData? = null
+)
+
+data class SubsData(
+	@field:SerializedName("totalSubscription")
+	val totalSubscription: Int? = null,
+
+	@field:SerializedName("remainingSubscription")
+	val remainingSubscription: Int? = null,
+
+	@field:SerializedName("remainingTime")
+	val remainingTime: Int? = null
 )

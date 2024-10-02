@@ -1,6 +1,7 @@
 package com.unsoed.elvora.data.network
 
 import com.unsoed.elvora.data.MapRequest
+import com.unsoed.elvora.data.response.BasicNotificationResponse
 import com.unsoed.elvora.data.response.BasicResponse
 import com.unsoed.elvora.data.response.CommonResponse
 import com.unsoed.elvora.data.response.PaidTransactionResponse
@@ -10,6 +11,8 @@ import com.unsoed.elvora.data.response.getSubs.SubsResponse
 import com.unsoed.elvora.data.response.home.DashboardResponse
 import com.unsoed.elvora.data.response.map.MapResponse
 import com.unsoed.elvora.data.response.new.NewTransactionResponse
+import com.unsoed.elvora.data.response.notification.NotificationResponse
+import com.unsoed.elvora.data.response.transaction.ActivityTransactionResponse
 import com.unsoed.elvora.data.response.transactionId.TransactionResponse
 import com.unsoed.elvora.data.response.verify.CardResponse
 import okhttp3.MultipartBody
@@ -117,6 +120,15 @@ interface ApiService {
     suspend fun publishToken(
         @Field("token") token: String,
     ): Response<CommonResponse>
+    @FormUrlEncoded
+    @POST("notification/subscription")
+    fun postNotification(
+        @Header("Authorization") token: String,
+        @Field("title") title: String,
+        @Field("content") content: String,
+        @Field("rent_transaction_id") rentTransactionInt: Int,
+        @Field("label") label: String,
+    ): Call<BasicNotificationResponse>
 
     @Multipart
     @POST("verify-ktp")
@@ -133,11 +145,17 @@ interface ApiService {
     suspend fun getAllSubscription(
         @Header("Authorization") token: String,
     ): Response<SubsResponse>
+
     @GET("transaction/{id}")
     suspend fun getTransactionById(
         @Header("Authorization") token: String,
         @Path("id") id: Int,
     ): Response<TransactionResponse>
+
+    @GET("transaction/activity")
+    suspend fun getTransactionActivity(
+        @Header("Authorization") token: String,
+    ): Response<ActivityTransactionResponse>
 
     @GET("transaction/active")
     suspend fun getActiveSubs(
@@ -148,6 +166,11 @@ interface ApiService {
     suspend fun getDashboard(
         @Header("Authorization") token: String,
     ): Response<DashboardResponse>
+
+    @GET("notification/all")
+    suspend fun getNotification(
+        @Header("Authorization") token: String,
+    ): Response<NotificationResponse>
 
     @GET("dashboard")
     fun getDashboardV2(

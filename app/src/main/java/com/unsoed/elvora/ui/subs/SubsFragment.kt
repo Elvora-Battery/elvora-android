@@ -94,6 +94,13 @@ class SubsFragment : Fragment() {
                         }
                         Log.d("SubsFragment", data.data.activeSubscription.toString())
 
+                        val dataSubs = data.data.subs
+                        dataSubs?.let { subs ->
+                            binding.cvRemainSubs.tvNumberSumary.text = subs.remainingSubscription.toString()
+                            binding.cvTotalSubs.tvNumberSumary.text = subs.totalSubscription.toString()
+                            binding.tvSubsCountDay.text = subs.remainingTime.toString()
+                        }
+
                         if(activeSubs?.id != null) {
                             setupActiveSubs(activeSubs!!)
                             binding.tvEmptySubs.visibility = View.GONE
@@ -105,7 +112,6 @@ class SubsFragment : Fragment() {
                             binding.btnArrowNext.visibility = View.VISIBLE
                             binding.divider.visibility = View.VISIBLE
                             binding.btnSeeAll.visibility = View.VISIBLE
-                            binding.cvTotalSubs.tvNumberSumary.text = data.data.allSubscriptions?.size.toString()
                         } else {
                             Log.d("SubsFragment", "Data Subs Kosong")
                             binding.tvEmptySubs.visibility = View.VISIBLE
@@ -163,7 +169,6 @@ class SubsFragment : Fragment() {
         binding.tvSubsIdBatteryType.text = if(activeSubs.rentTypeId == 1) "72V 20Ah Battery" else "72V 40Ah Battery"
         binding.tvSubsMotorcycleName.text = activeSubs.batteryName
         binding.tvSubsEndDate.text = "Ends on $formatDate"
-        binding.tvSubsCountDay.text = "31"
         binding.tvSubsEndMonth.text = "Until ${formatDatePlusOneMonth(activeSubs.createdAt!!)}"
     }
 

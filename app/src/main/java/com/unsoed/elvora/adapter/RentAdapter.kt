@@ -46,7 +46,6 @@ class RentAdapter(private val listRent: List<Rental>): RecyclerView.Adapter<Rent
             onDetailItemClicked.onClick(data)
         }
     }
-
     interface OnItemClick {
         fun onClick(data: Rental)
     }

@@ -27,6 +27,7 @@ class ContactSupportActivity : AppCompatActivity() {
 
         binding.btnArrowBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
+            finish()
         }
 
 

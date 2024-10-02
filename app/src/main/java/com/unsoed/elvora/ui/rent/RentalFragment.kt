@@ -78,7 +78,7 @@ class RentalFragment : Fragment() {
             setupRecyclerView()
         } else {
             binding.layoutFilter.visibility = View.GONE
-            rentViewModel.getAllTransaction().observe(viewLifecycleOwner) {
+            rentViewModel.getActivityTransaction().observe(viewLifecycleOwner) {
                 it?.let { response ->
                     when (response) {
                         is ApiResult.Loading -> {

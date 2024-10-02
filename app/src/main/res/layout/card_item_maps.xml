@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_marginHorizontal="12dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_station"
+            android:layout_width="80dp"
+            android:layout_height="75dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:scaleType="fitXY"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/placeholder_gas"/>
+
+        <TextView
+            android:id="@+id/tv_station_name"
+            style="@style/TextAppearance.Elvora.TitleMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="18dp"
+            android:textColor="@color/blue_container2"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_station"
+            app:layout_constraintTop_toTopOf="@+id/iv_station"
+            tools:text="Station Blue Ocean" />
+
+        <TextView
+            android:id="@+id/tv_station_street"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_station_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_station_name"
+            android:text="Jl. Setiabudi V" />
+
+        <TextView
+            android:id="@+id/tv_station_time"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="8dp"
+            android:textColor="#219317"
+            app:layout_constraintStart_toStartOf="@+id/tv_station_street"
+            app:layout_constraintTop_toBottomOf="@+id/tv_station_street"
+            android:drawableStart="@drawable/icon_clock"
+            android:text="Operational" />
+
+        <TextView
+            android:id="@+id/tv_distance_station"
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tv_station_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_station_time"
+            app:layout_constraintTop_toBottomOf="@+id/tv_station_time"
+            tools:text="200 km from your location" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

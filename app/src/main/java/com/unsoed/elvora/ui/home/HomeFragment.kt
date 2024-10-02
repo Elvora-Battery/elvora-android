@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
     private var userData: UserModel? = null
     private var isTierUserPremium: Boolean = false
     private var isSubsReminderActive: Boolean = false
+    private var firstTimeGetReminder: Boolean = false
     private var batteryData: Battery? = null
     private var transactionData: Transaction? = null
     private lateinit var workManager: WorkManager
@@ -70,6 +71,19 @@ class HomeFragment : Fragment() {
         setupCardTemperature()
     }
 
+    private fun setDataSession(dataSession: Boolean) {
+        Log.d(TAG, "Daily reminder: $dataSession")
+        if (dataSession) {
+            isSubsReminderActive = true
+            Log.d(TAG, "Daily reminder subs aktif")
+        } else {
+            isSubsReminderActive = false
+            Log.d(TAG, "Daily reminder subs tidak aktif")
+            homeViewModel.setReminderSubs(true)
+            startPeriodicTask()
+        }
+    }
+
     private fun initView() {
         homeViewModel.getUserSession().observe(viewLifecycleOwner) {
             it?.let {
@@ -85,27 +99,28 @@ class HomeFragment : Fragment() {
             }
         }
 
-        homeViewModel.getReminderSubs().observe(viewLifecycleOwner) { isActive ->
-            if (isActive) {
-                isSubsReminderActive = true
-                Toast.makeText(requireContext(), "Daily reminder subs aktif", Toast.LENGTH_SHORT)
-                    .show()
-            } else {
-                isSubsReminderActive = false
-                homeViewModel.setReminderSubs(true)
+        homeViewModel.getReminderSubs()
+        homeViewModel.isReminderSubsActive.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { dataSession ->
+                setDataSession(dataSession)
+            }
+
+            binding.ivMember.setOnClickListener {
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                intent.putExtra(ProfileActivity.EXTRA_DATA, userData)
+                intent.putExtra(ProfileActivity.EXTRA_PREMIUM, isTierUserPremium)
+                startActivity(intent)
+            }
+
+            binding.btnNotification.setOnClickListener {
+                val intent = Intent(requireContext(), NotificationActivity::class.java)
+                startActivity(intent)
             }
         }
-
-        binding.ivMember.setOnClickListener {
-            val intent = Intent(requireContext(), ProfileActivity::class.java)
-            intent.putExtra(ProfileActivity.EXTRA_DATA, userData)
-            intent.putExtra(ProfileActivity.EXTRA_PREMIUM, isTierUserPremium)
-            startActivity(intent)
-        }
-
     }
 
     private fun startPeriodicTask() {
+        Log.d(TAG, "Periodic dijalankan")
         val data = Data.Builder()
             .putString(ReminderWorker.EXTRA_TOKEN, userData?.token)
             .build()
@@ -250,9 +265,6 @@ class HomeFragment : Fragment() {
                         }
 
                         if (response.data.battery?.id != null) {
-                            if(!isSubsReminderActive) {
-                                startPeriodicTask()
-                            }
                             batteryData = response.data.battery
                             batteryData?.let { battery ->
                                 binding.apply {

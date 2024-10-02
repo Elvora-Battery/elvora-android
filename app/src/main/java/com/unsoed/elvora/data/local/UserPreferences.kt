@@ -93,7 +93,7 @@ class UserPreferences private constructor(private val dataStore: DataStore<Prefe
 
     suspend fun saveDailyReminderSubs(isActive: Boolean) {
         dataStore.edit { preferences ->
-            preferences[PREMIUM_KEY] = isActive
+            preferences[DAILY_REMINDER_SUBS_KEY] = isActive
         }
     }
 

@@ -16,57 +16,59 @@
         android:paddingVertical="18dp"
         >
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_circle_star"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_act_battery"
+            android:id="@+id/tv_notif_status"
             style="@style/TextAppearance.Elvora.BodySmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:background="@drawable/bg_text_activity"
             android:paddingHorizontal="16dp"
             android:paddingTop="2dp"
             android:textColor="#0282CC"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6"
-            tools:text="72V 20Ah" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Transactions" />
 
         <TextView
+            android:id="@+id/tv_notif_title"
             style="@style/TextAppearance.Elvora.TitleMedium"
-            android:id="@+id/tv_act_motor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/tv_act_battery"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/tv_act_battery"
-            tools:text="EV20003" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_notif_status"
+            app:layout_constraintStart_toStartOf="@+id/tv_notif_status"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notif_status"
+            tools:text="Due Date" />
 
         <TextView
             style="@style/TextAppearance.Elvora.BodySmall"
-            android:id="@+id/tv_act_date"
+            android:id="@+id/tv_notif_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_act_motor"
-            app:layout_constraintTop_toBottomOf="@+id/tv_act_motor"
+            app:layout_constraintStart_toStartOf="@+id/tv_notif_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notif_title"
+            tools:text="The subscription period will end in a few days. Don't forget to pay the bill, so you can always be comfortable while driving." />
+
+        <TextView
+            style="@style/TextAppearance.Elvora.BodySmall"
+            android:id="@+id/tv_notif_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_notif_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_notif_desc"
             tools:text="28 January 2023, 14:08 WIB" />
 
         <TextView
-            android:id="@+id/tv_act_status"
+            android:id="@+id/tv_notif_id_battery"
             style="@style/TextAppearance.Elvora.BodyMedium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_act_battery"
+            android:textColor="#FFB13D"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/tv_notif_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_act_battery"
+            app:layout_constraintTop_toTopOf="@+id/tv_notif_status"
             tools:text="Waiting Payment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
