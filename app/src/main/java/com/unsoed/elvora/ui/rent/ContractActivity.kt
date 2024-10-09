@@ -28,6 +28,7 @@ class ContractActivity : AppCompatActivity() {
     }
     private var name = ""
     private var idBattery = ""
+    private var isBarcodeCreate = false
     private var paymentTotal: Double? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,41 +130,46 @@ class ContractActivity : AppCompatActivity() {
                 binding.ivBarcode.visibility = View.VISIBLE
                 binding.btnGenerateToken.visibility = View.GONE
                 binding.ivBarcode.setImageBitmap(bmp)
+                isBarcodeCreate = true
             } catch (e: WriterException) {
                 e.printStackTrace()
             }
         }
 
         binding.btnContinuePayment.setOnClickListener {
-            rentViewModel.newTransaction(idRent = idBattery).observe(this) {
-                it?.let { data ->
-                    when(data) {
-                        is ApiResult.Loading -> {
-                            binding.btnContinuePayment.visibility = View.GONE
-                            binding.ltLoading.visibility = View.VISIBLE
-                        }
+            if(isBarcodeCreate) {
+                rentViewModel.newTransaction(idRent = idBattery).observe(this) {
+                    it?.let { data ->
+                        when(data) {
+                            is ApiResult.Loading -> {
+                                binding.btnContinuePayment.visibility = View.GONE
+                                binding.ltLoading.visibility = View.VISIBLE
+                            }
 
-                        ApiResult.Empty -> {
+                            ApiResult.Empty -> {
 
-                        }
+                            }
 
-                        is ApiResult.Error -> {
-                            binding.btnContinuePayment.visibility = View.VISIBLE
-                            binding.ltLoading.visibility = View.GONE
-                            Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
-                        }
+                            is ApiResult.Error -> {
+                                binding.btnContinuePayment.visibility = View.VISIBLE
+                                binding.ltLoading.visibility = View.GONE
+                                Toast.makeText(this, data.message, Toast.LENGTH_SHORT).show()
+                            }
 
-                        is ApiResult.Success -> {
-                            Toast.makeText(this, data.data.status, Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@ContractActivity, PaymentMethodActivity::class.java)
-                            intent.putExtra(PaymentMethodActivity.PAYMENT_PRICE, paymentTotal)
-                            intent.putExtra(PaymentMethodActivity.TRANSACTION_ID, data.data.id)
-                            intent.putExtra(PaymentMethodActivity.BATTERY_TYPE, data.data.batteryName)
-                            intent.putExtra(PaymentMethodActivity.BATTERY_ID, data.data.rentTypeId)
-                            startActivity(intent)
+                            is ApiResult.Success -> {
+                                Toast.makeText(this, data.data.status, Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this@ContractActivity, PaymentMethodActivity::class.java)
+                                intent.putExtra(PaymentMethodActivity.PAYMENT_PRICE, paymentTotal)
+                                intent.putExtra(PaymentMethodActivity.TRANSACTION_ID, data.data.id)
+                                intent.putExtra(PaymentMethodActivity.BATTERY_TYPE, data.data.batteryName)
+                                intent.putExtra(PaymentMethodActivity.BATTERY_ID, data.data.rentTypeId)
+                                startActivity(intent)
+                            }
                         }
                     }
                 }
+            } else {
+                Toast.makeText(this, "You mus create your signature first", Toast.LENGTH_SHORT).show()
             }
         }
     }

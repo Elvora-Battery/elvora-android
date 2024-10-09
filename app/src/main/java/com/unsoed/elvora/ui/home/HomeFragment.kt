@@ -279,14 +279,9 @@ class HomeFragment : Fragment() {
                                         if (battery.chargingStatus == "Not Charging") "No" else "Yes"
                                     cardTime.tvSatuanSumary.text = ""
                                     cardDistance.tvNumberSumary.text =
-                                        "${battery.distanceTravelled ?: "-"}"
+                                        String.format("%.2f", battery.distanceTravelled) ?: "-"
                                     cardDistance.tvSatuanSumary.text = "Km"
-                                    cardBatteryMonitoring.tvCardPercentage.text = "${
-                                        String.format(
-                                            "%.2f",
-                                            battery.batteryPercentage
-                                        ) ?: "-"
-                                    }%"
+                                    cardBatteryMonitoring.tvCardPercentage.text = "${String.format("%.2f", battery.batteryPercentage) ?: "-"}%"
                                 }
                                 getAddress(battery.latitude!!, battery.longitude!!)
                             }
